@@ -4,32 +4,41 @@
     <NavigationBar current="首页"></NavigationBar>
 
     <div class="banner">
-      <!-- <img src="/images/2020.jpg" alt=""> -->
-
     </div>
-    <div class="container">
 
-      <logo />
+    <b-container class="bv-example-row">
+      <b-row>
+        <b-col class="side-menu-col">
+          <SideMenu></SideMenu>
+        </b-col>
+        <b-col cols="9">
+          <div class="container">
+            <div class="content">
+              <logo />
+              <h1 class="title">
+                nuxt-pages
+              </h1>
+              <h2 class="subtitle">
+                Web pages for Vapor Blog Project
+              </h2>
+              <div class="links">
+                <a href="https://nuxtjs.org/"
+                   target="_blank"
+                   class="button--green">
+                  Documentation
+                </a>
+                <a href="https://github.com/nuxt/nuxt.js"
+                   target="_blank"
+                   class="button--grey">
+                  GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+        </b-col>
+      </b-row>
+    </b-container>
 
-      <h1 class="title">
-        nuxt-pages
-      </h1>
-      <h2 class="subtitle">
-        Web pages for Vapor Blog Project
-      </h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/"
-           target="_blank"
-           class="button--green">
-          Documentation
-        </a>
-        <a href="https://github.com/nuxt/nuxt.js"
-           target="_blank"
-           class="button--grey">
-          GitHub
-        </a>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -37,16 +46,38 @@
 
 import Logo from '~/components/Logo.vue'
 import NavigationBar from '~/components/NavigationBar.vue'
+import SideMenu from '~/components/SideMenu.vue'
 
 export default {
   components: {
     Logo,
     NavigationBar,
+    SideMenu
   }
 }
+
 </script>
 
 <style>
+
+body {
+  background-color: #f4f4f4;
+}
+
+/*当页面宽度小于 960px 的时候执行包裹的css*/
+@media screen and (max-width: 1024px) {
+  .side-menu-col {
+    display: none;
+  }
+}
+
+/*当页面宽度大于 960px 的时候执行包裹的css*/
+@media screen and (min-width: 1024px) {
+  .side-menu-col {
+    display: block;
+  }
+}
+
 .container {
   margin: 2rem auto;
   min-height: 100vh;

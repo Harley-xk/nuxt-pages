@@ -66,3 +66,10 @@ export default {
   }
 }
 </script>
+
+<style>
+  .navbar {
+    box-shadow: 0px 2px 2px #00000055;
+  }
+  
+</style>  

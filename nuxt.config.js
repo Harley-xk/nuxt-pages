@@ -23,6 +23,7 @@ export default {
   ** Global CSS
   */
   css: [
+    { src: './assets/fonts/iconfont/iconfont.css', lang: 'css' }
   ],
   /*
   ** Plugins to load before mounting the App
