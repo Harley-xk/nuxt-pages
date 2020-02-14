@@ -1,7 +1,16 @@
 <template>
-  <div class="container">
-    <div>
+  <div>
+
+    <NavigationBar current="首页"></NavigationBar>
+
+    <div class="banner">
+      <!-- <img src="/images/2020.jpg" alt=""> -->
+
+    </div>
+    <div class="container">
+
       <logo />
+
       <h1 class="title">
         nuxt-pages
       </h1>
@@ -9,18 +18,14 @@
         Web pages for Vapor Blog Project
       </h2>
       <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
+        <a href="https://nuxtjs.org/"
+           target="_blank"
+           class="button--green">
           Documentation
         </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
+        <a href="https://github.com/nuxt/nuxt.js"
+           target="_blank"
+           class="button--grey">
           GitHub
         </a>
       </div>
@@ -29,28 +34,48 @@
 </template>
 
 <script>
+
 import Logo from '~/components/Logo.vue'
+import NavigationBar from '~/components/NavigationBar.vue'
 
 export default {
   components: {
-    Logo
+    Logo,
+    NavigationBar,
   }
 }
 </script>
 
 <style>
 .container {
-  margin: 0 auto;
+  margin: 2rem auto;
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
+  /* display: flex; */
+  /* justify-content: center;
   align-items: center;
-  text-align: center;
+  text-align: center; */
+}
+
+.banner {
+  width: 100%;
+  height: 400px;
+  display: block;
+  background-size: cover;
+  background-position: 0px;
+  /* background-repeat: no-repeat; */
+  background-image: url(/images/2020.jpg);
+}
+
+.banner img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   display: block;
   font-weight: 300;
   font-size: 100px;
