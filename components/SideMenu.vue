@@ -54,6 +54,12 @@
       </a>
 
       <a class="side-menu-contact-icon"
+         href="https://paypal.me/harley491078160"
+         target="blank">
+        <span class="iconfont icon-paypal"></span>
+      </a>
+
+      <a class="side-menu-contact-icon"
          href="mailto:harley.gb@foxmail.com">
         <span class="iconfont icon-email"></span>
       </a>

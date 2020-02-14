@@ -6,14 +6,13 @@
     <div class="banner">
     </div>
 
-    <b-container class="bv-example-row">
+    <b-container>
       <b-row>
         <b-col class="side-menu-col">
           <SideMenu></SideMenu>
         </b-col>
         <b-col cols="9">
           <div class="container">
-            <div class="content">
               <logo />
               <h1 class="title">
                 nuxt-pages
@@ -33,7 +32,6 @@
                   GitHub
                 </a>
               </div>
-            </div>
           </div>
         </b-col>
       </b-row>
@@ -59,9 +57,8 @@ export default {
 </script>
 
 <style>
-
 body {
-  background-color: #f4f4f4;
+  /* background-color: #f4f4f4; */
 }
 
 /*当页面宽度小于 960px 的时候执行包裹的css*/
@@ -88,11 +85,13 @@ body {
 }
 
 .banner {
-  width: 100%;
-  height: 400px;
+  width: 100vw;
+  height: 60vw;
+  min-height: 200px;
+  max-height: 400px;
   display: block;
   background-size: cover;
-  background-position: 0px;
+  background-position: 50%;
   /* background-repeat: no-repeat; */
   background-image: url(/images/2020.jpg);
 }
