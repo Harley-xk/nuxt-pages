@@ -55,7 +55,7 @@
 
       <a class="side-menu-contact-icon"
          href="https://paypal.me/harley491078160"
-         target="blank">
+         target="_blank">
         <span class="iconfont icon-paypal"></span>
       </a>
 

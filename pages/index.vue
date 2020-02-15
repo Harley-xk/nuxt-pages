@@ -6,35 +6,17 @@
     <div class="banner">
     </div>
 
-    <b-container>
-      <b-row>
-        <b-col class="side-menu-col">
-          <SideMenu></SideMenu>
-        </b-col>
-        <b-col cols="9">
-          <div class="container">
-              <logo />
-              <h1 class="title">
-                nuxt-pages
-              </h1>
-              <h2 class="subtitle">
-                Web pages for Vapor Blog Project
-              </h2>
-              <div class="links">
-                <a href="https://nuxtjs.org/"
-                   target="_blank"
-                   class="button--green">
-                  Documentation
-                </a>
-                <a href="https://github.com/nuxt/nuxt.js"
-                   target="_blank"
-                   class="button--grey">
-                  GitHub
-                </a>
-              </div>
-          </div>
-        </b-col>
-      </b-row>
+    <b-container class="container">
+      <!-- <div> -->
+      <div class="side-menu-col">
+        <SideMenu></SideMenu>
+      </div>
+      <div class="post-list-container">
+
+        <post-list :posts="postList"></post-list>
+
+      </div>
+      <!-- </div> -->
     </b-container>
 
   </div>
@@ -45,43 +27,53 @@
 import Logo from '~/components/Logo.vue'
 import NavigationBar from '~/components/NavigationBar.vue'
 import SideMenu from '~/components/SideMenu.vue'
+import PostList from '~/components/PostList.vue'
 
 export default {
   components: {
     Logo,
     NavigationBar,
-    SideMenu
+    SideMenu,
+    'post-list': PostList
+  },
+  data () {
+    return {
+      postList: []
+    }
+  },
+  mounted () {
+    this.$axios.get(`posts`).then(res => {
+      this.postList = res.data
+      console.log(res)
+    })
   }
 }
 
 </script>
 
 <style>
-body {
-  /* background-color: #f4f4f4; */
+.container {
+  display: flex;
+  margin: 2rem auto;
+  min-height: 100vh;
+}
+.post-list-container {
+  padding: 1rem;
 }
 
 /*当页面宽度小于 960px 的时候执行包裹的css*/
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 991px) {
   .side-menu-col {
     display: none;
   }
 }
 
 /*当页面宽度大于 960px 的时候执行包裹的css*/
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 991px) {
   .side-menu-col {
-    display: block;
+    flex-shrink: 0;
+    flex-basis: 280px;
   }
-}
-
-.container {
-  margin: 2rem auto;
-  min-height: 100vh;
-  /* display: flex; */
-  /* justify-content: center;
-  align-items: center;
-  text-align: center; */
 }
 
 .banner {
