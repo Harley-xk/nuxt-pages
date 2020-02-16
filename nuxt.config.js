@@ -48,6 +48,10 @@ export default {
     prefix: '/api', // 表示给请求url加个前缀 /api
     credentials: true // 表示跨域请求时是否需要使用凭证
   },
+  server: {
+    host: '0.0.0.0',
+    port: 3000
+  },
   proxy: {
     '/api': {
       target: 'http://localhost:8080', // 目标接口域名

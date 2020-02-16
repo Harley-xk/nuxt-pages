@@ -12,9 +12,7 @@
         <SideMenu></SideMenu>
       </div>
       <div class="post-list-container">
-
         <post-list :posts="postList"></post-list>
-
       </div>
       <!-- </div> -->
     </b-container>
@@ -41,7 +39,7 @@ export default {
       postList: []
     }
   },
-  mounted () {
+  created () {
     this.$axios.get(`posts`).then(res => {
       this.postList = res.data
       console.log(res)

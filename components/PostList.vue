@@ -5,8 +5,7 @@
          v-for="(item, index) in posts"
          :key="index">
       <a class="post-list-item-title"
-         :href="'/posts/' + item.id">
-
+         :href="'/posts/?id=' + item.id">
         {{item.title}}
       </a>
 
