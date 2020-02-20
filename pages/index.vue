@@ -12,7 +12,10 @@
         <SideMenu></SideMenu>
       </div>
       <div class="post-list-container">
-        <post-list :posts="postList"></post-list>
+        <post-list :posts="postPage.items"></post-list>
+        <b-pagination-nav v-show="postPage.metadata.total > 1"
+                          :link-gen="linkGen"
+                          :number-of-pages="totalPages"></b-pagination-nav>
       </div>
       <!-- </div> -->
     </b-container>
@@ -34,16 +37,42 @@ export default {
     SideMenu,
     'post-list': PostList
   },
+  created () {
+    var page = this.$route.query.page
+    if (page === null || page === undefined) {
+      page = 1
+    }
+    this.refreshData(page)
+  },
   data () {
     return {
-      postList: []
+      postPage: {
+        items: [],
+        metadata: {
+          page: 1,
+          per: 10,
+          total: 1
+        }
+      }
     }
   },
-  created () {
-    this.$axios.get(`posts`).then(res => {
-      this.postList = res.data
-      console.log(res)
-    })
+  computed: {
+    totalPages () {
+      return Math.ceil(this.postPage.metadata.total / 10)
+    }
+  },
+  methods: {
+    refreshData (page) {
+      this.$axios.get(`posts?page=` + page).then(res => {
+        this.postPage = res.data
+        console.log(res)
+      })
+    },
+    linkGen (pageNum) {
+      // this.postPage.items = []
+      // this.refreshData(pageNum)
+      return pageNum === 1 ? '/' : `?page=${pageNum}`
+    },
   }
 }
 
