@@ -7,19 +7,17 @@
       <h1>This is Title: {{id}}</h1>
     </banner>
 
-    <b-container class="container">
-      <!-- <div> -->
-      <div class="side-menu-col">
+    <split-container>
+
+      <template v-slot:side-menu>
         <SideMenu></SideMenu>
-      </div>
-      <div class="post-content-container">
+      </template>
 
-        <h1>This is a post page</h1>
+      <h1>This is a post page</h1>
 
-        <h5>Post id: {{id}}</h5>
-      </div>
-      <!-- </div> -->
-    </b-container>
+      <h5>Post id: {{id}}</h5>
+
+    </split-container>
 
   </div>
 </template>
@@ -29,12 +27,14 @@
 import NavigationBar from '~/components/NavigationBar.vue'
 import SideMenu from '~/components/SideMenu.vue'
 import Banner from '~/components/Banner.vue'
+import SplitContainer from '~/components/SplitContainer.vue'
 
 export default {
   components: {
     NavigationBar,
     SideMenu,
-    Banner
+    Banner,
+    "split-container": SplitContainer
   },
   created () {
     this.id = this.$route.query.id

@@ -7,27 +7,26 @@
       <div class="title">Harley's Studio</div>
     </banner>
 
-    <b-container class="container">
+    <split-container>
 
-      <div class="side-menu-col">
+      <template v-slot:side-menu>
         <SideMenu></SideMenu>
-      </div>
+      </template>
 
-      <div class="post-list-container">
         <chrysan :loading="loading"></chrysan>
         <post-list :posts="postPage.items"></post-list>
         <b-pagination-nav v-show="postPage.metadata.total > pageSize"
                           :link-gen="linkGen"
                           :number-of-pages="totalPages"></b-pagination-nav>
-      </div>
+    </split-container>
 
-    </b-container>
   </div>
 </template>
 
 <script>
 
 import NavigationBar from '~/components/NavigationBar.vue'
+import SplitContainer from '~/components/SplitContainer.vue'
 import SideMenu from '~/components/SideMenu.vue'
 import PostList from '~/components/PostList.vue'
 import Banner from '~/components/Banner.vue'
@@ -36,6 +35,7 @@ import Chrysan from '~/components/Chrysan.vue'
 export default {
   components: {
     Banner,
+    'split-container': SplitContainer,
     NavigationBar,
     SideMenu,
     Chrysan,
@@ -87,31 +87,6 @@ export default {
 </script>
 
 <style>
-.container {
-  display: flex;
-  margin: 2rem auto;
-  min-height: 100vh;
-}
-.post-list-container {
-  flex-grow: 1;
-  padding: 1rem;
-}
-
-/*当页面宽度小于 960px 的时候执行包裹的css*/
-@media screen and (max-width: 991px) {
-  .side-menu-col {
-    display: none;
-  }
-}
-
-/*当页面宽度大于 960px 的时候执行包裹的css*/
-@media screen and (min-width: 991px) {
-  .side-menu-col {
-    flex-shrink: 0;
-    flex-basis: 280px;
-  }
-}
-
 .title {
   font-family: "Helvetica Neue", Arial, sans-serif;
   font-weight: 500;
