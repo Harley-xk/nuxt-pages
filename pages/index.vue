@@ -3,38 +3,42 @@
 
     <NavigationBar current="首页"></NavigationBar>
 
-    <div class="banner">
-    </div>
+    <banner image="/images/2020.jpg">
+      <div class="title">Harley's Studio</div>
+    </banner>
 
     <b-container class="container">
-      <!-- <div> -->
+
       <div class="side-menu-col">
         <SideMenu></SideMenu>
       </div>
+
       <div class="post-list-container">
+        <chrysan :loading="loading"></chrysan>
         <post-list :posts="postPage.items"></post-list>
         <b-pagination-nav v-show="postPage.metadata.total > pageSize"
                           :link-gen="linkGen"
                           :number-of-pages="totalPages"></b-pagination-nav>
       </div>
-      <!-- </div> -->
-    </b-container>
 
+    </b-container>
   </div>
 </template>
 
 <script>
 
-import Logo from '~/components/Logo.vue'
 import NavigationBar from '~/components/NavigationBar.vue'
 import SideMenu from '~/components/SideMenu.vue'
 import PostList from '~/components/PostList.vue'
+import Banner from '~/components/Banner.vue'
+import Chrysan from '~/components/Chrysan.vue'
 
 export default {
   components: {
-    Logo,
+    Banner,
     NavigationBar,
     SideMenu,
+    Chrysan,
     'post-list': PostList
   },
   created () {
@@ -46,8 +50,9 @@ export default {
   },
   data () {
     return {
+      loading: false,
+      pageSize: 10,
       postPage: {
-        pageSize: 10,
         items: [],
         metadata: {
           page: 1,
@@ -64,8 +69,10 @@ export default {
   },
   methods: {
     refreshData (page) {
+      this.loading = true
       this.$axios.get(`posts?page=` + page).then(res => {
         this.postPage = res.data
+        this.loading = false
         console.log(res)
       })
     },
@@ -86,6 +93,7 @@ export default {
   min-height: 100vh;
 }
 .post-list-container {
+  flex-grow: 1;
   padding: 1rem;
 }
 
@@ -104,33 +112,12 @@ export default {
   }
 }
 
-.banner {
-  width: 100vw;
-  height: 60vw;
-  min-height: 200px;
-  max-height: 400px;
-  display: block;
-  background-size: cover;
-  background-position: 50%;
-  /* background-repeat: no-repeat; */
-  background-image: url(/images/2020.jpg);
-}
-
-.banner img {
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: 100%;
-}
-
 .title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-weight: 500;
+  font-size: 3.5rem;
+  color: white;
+  letter-spacing: 2px;
 }
 
 .subtitle {
