@@ -48,10 +48,10 @@
         <img class="side-menu-contact-icon-popover" src="/images/qq.jpg" alt="">
       </b-popover>
 
-      <a class="side-menu-contact-icon"
+      <!-- <a class="side-menu-contact-icon"
          id="popover-target-qq">
         <span class="iconfont icon-qq"></span>
-      </a>
+      </a> -->
 
       <a class="side-menu-contact-icon"
          href="https://paypal.me/harley491078160"
@@ -97,6 +97,7 @@
 
 .side-menu-motto {
   margin-top: 0.5rem;
+  font-size: 0.8rem;
 }
 
 .side-menu-contact {
