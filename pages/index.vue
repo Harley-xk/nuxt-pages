@@ -59,7 +59,7 @@ export default {
   },
   computed: {
     totalPages () {
-      return Math.ceil(this.postPage.metadata.total / pageSize)
+      return Math.ceil(this.postPage.metadata.total / this.pageSize)
     }
   },
   methods: {
