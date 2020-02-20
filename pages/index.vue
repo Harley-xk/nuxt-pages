@@ -13,7 +13,7 @@
       </div>
       <div class="post-list-container">
         <post-list :posts="postPage.items"></post-list>
-        <b-pagination-nav v-show="postPage.metadata.total > 1"
+        <b-pagination-nav v-show="postPage.metadata.total > pageSize"
                           :link-gen="linkGen"
                           :number-of-pages="totalPages"></b-pagination-nav>
       </div>
@@ -47,6 +47,7 @@ export default {
   data () {
     return {
       postPage: {
+        pageSize: 10,
         items: [],
         metadata: {
           page: 1,
@@ -58,7 +59,7 @@ export default {
   },
   computed: {
     totalPages () {
-      return Math.ceil(this.postPage.metadata.total / 10)
+      return Math.ceil(this.postPage.metadata.total / pageSize)
     }
   },
   methods: {
