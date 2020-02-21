@@ -15,7 +15,7 @@
 
         <chrysan :loading="loading"></chrysan>
         <post-list :posts="postPage.items"></post-list>
-        <b-pagination-nav v-show="postPage.metadata.total > pageSize"
+        <b-pagination-nav class="pagination-nav" v-show="postPage.metadata.total > pageSize"
                           :link-gen="linkGen"
                           :number-of-pages="totalPages"></b-pagination-nav>
     </split-container>
@@ -87,6 +87,7 @@ export default {
 </script>
 
 <style>
+
 .title {
   font-family: "Helvetica Neue", Arial, sans-serif;
   font-weight: 500;
@@ -95,15 +96,16 @@ export default {
   letter-spacing: 2px;
 }
 
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
+.page-link {
+  padding: 0.5rem 1rem;
   color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
 }
 
-.links {
-  padding-top: 15px;
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #526488;
+    border-color: #526488;
 }
+
 </style>
