@@ -21,6 +21,7 @@
 .split-content {
   flex-grow: 1;
   padding: 1rem;
+  overflow: hidden;
 }
 
 /*当页面宽度小于 960px 的时候执行包裹的css*/

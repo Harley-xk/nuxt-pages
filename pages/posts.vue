@@ -4,7 +4,7 @@
     <NavigationBar current="文章"></NavigationBar>
 
     <banner image="/images/2020.jpg">
-      <h1>This is Title: {{id}}</h1>
+      <div class="post-title">{{title}}</div>
     </banner>
 
     <split-container>
@@ -13,9 +13,11 @@
         <SideMenu></SideMenu>
       </template>
 
-      <h1>This is a post page</h1>
+      <chrysan :loading="loading"></chrysan>
 
-      <h5>Post id: {{id}}</h5>
+      <div v-if="haveContents">
+        <markdown :content="details.content"></markdown>
+      </div>
 
     </split-container>
 
@@ -28,24 +30,51 @@ import NavigationBar from '~/components/NavigationBar.vue'
 import SideMenu from '~/components/SideMenu.vue'
 import Banner from '~/components/Banner.vue'
 import SplitContainer from '~/components/SplitContainer.vue'
+import Chrysan from '~/components/Chrysan.vue'
+import Markdown from '~/components/Markdown.vue'
 
 export default {
   components: {
     NavigationBar,
     SideMenu,
     Banner,
-    "split-container": SplitContainer
+    Chrysan,
+    "split-container": SplitContainer,
+    Markdown
   },
   created () {
     this.id = this.$route.query.id
-    // this.title
+    this.getContents()
   },
   data () {
     return {
       id: '',
-      title: ''
+      title: '',
+      loading: false,
+      details: {
+        meta: null,
+        content: ''
+      }
     }
   },
+  computed: {
+    haveContents () {
+      return (this.details !== null
+        && this.details.content !== null
+        && this.details.content.length > 0)
+    }
+  },
+  methods: {
+    getContents () {
+      this.loading = true
+      this.$axios.get(`posts/` + this.id).then(res => {
+        this.details = res.data
+        this.title = res.data.meta.title
+        console.log(res)
+        this.loading = false
+      })
+    }
+  }
 }
 </script>
 
@@ -57,21 +86,6 @@ export default {
 }
 .post-content-container {
   padding: 1rem;
-}
-
-/*当页面宽度小于 960px 的时候执行包裹的css*/
-@media screen and (max-width: 991px) {
-  .side-menu-col {
-    display: none;
-  }
-}
-
-/*当页面宽度大于 960px 的时候执行包裹的css*/
-@media screen and (min-width: 991px) {
-  .side-menu-col {
-    flex-shrink: 0;
-    flex-basis: 280px;
-  }
 }
 
 .post-title {

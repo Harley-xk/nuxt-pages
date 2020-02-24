@@ -23,7 +23,8 @@ export default {
   ** Global CSS
   */
   css: [
-    { src: './assets/fonts/iconfont/iconfont.css', lang: 'css' }
+    { src: './assets/fonts/iconfont/iconfont.css', lang: 'css' },
+    { src: './assets/styles/markdown/vue.css', lang: 'css' },
   ],
   /*
   ** Plugins to load before mounting the App
