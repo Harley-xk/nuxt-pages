@@ -1,5 +1,5 @@
 <template>
-  <b-navbar toggleable="lg"
+  <b-navbar toggleable="md"
             type="dark"
             variant="dark" sticky>
     <b-navbar-brand href="#">Harley's Studio</b-navbar-brand>
@@ -52,7 +52,7 @@ export default {
         },
         {
           name: '文章',
-          href: '/post'
+          href: '/posts'
         },
         {
           name: '关于',
@@ -69,7 +69,12 @@ export default {
 
 <style>
   .navbar {
+    padding: 0.25rem 1rem;
     box-shadow: 0px 2px 2px #00000055;
+  }
+
+  .navbar-nav {
+    margin: 0;
   }
   
 </style>  

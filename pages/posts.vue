@@ -15,7 +15,7 @@
 
       <chrysan :loading="loading"></chrysan>
 
-      <div v-if="haveContents">
+      <div class="post-content" v-if="haveContents">
         <markdown :content="details.content"></markdown>
       </div>
 
@@ -92,5 +92,13 @@ export default {
   width: 100%;
   color: white;
   text-align: center;
+}
+
+.post-content h2:first-child {
+    margin-top: 0;
+}
+
+.post-content img {
+  max-width: 100%;
 }
 </style>
