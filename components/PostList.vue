@@ -17,16 +17,15 @@
            v-for="(tag, index) in item.tags"
            :key="index"
            :href="'/tags/' + tag">
-          #{{tag}}
+          <span class="iconfont icon-tag"></span>{{tag}}
         </a>
       </div>
       <div class="post-list-item-foot">
         <span class="post-list-foot-item">
-          <span class="iconfont icon-calendar"></span>
-          {{item.date}}
+          <span class="iconfont icon-calendar-2"></span> {{item.date}}
         </span>
         <span class="post-list-foot-item">
-          <span class="iconfont icon-view"></span>
+          <span class="iconfont icon-reading"></span>
           {{item.views}}
         </span>
         <span class="post-list-foot-item">
@@ -86,7 +85,18 @@ export default {
 
 .post-tags-item:hover {
   color: rgb(255, 72, 0);
+    text-decoration: none;
 }
+
+.post-tags-item .iconfont {
+  font-size: 12px;
+  margin-right: 4px;
+}
+
+/* 
+.post-tags-item .iconfont:hover {
+  text-decoration: none;
+} */
 
 .post-list-item-foot {
   padding-bottom: 0.5rem;
@@ -96,5 +106,9 @@ export default {
   color: #444;
   font-size: 0.9rem;
   margin-right: 1rem;
+}
+
+.post-list-foot-item .iconfont {
+  font-size: 12px;
 }
 </style>

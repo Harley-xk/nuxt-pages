@@ -60,6 +60,9 @@ export default {
         '^/valog/api': '/api', // 去掉 /valog
         changeOrigin: true // 表示是否跨域
       }
+    },
+    '/post-images': {
+      target: 'http://localhost:8888'
     }
   },
   /*
@@ -73,7 +76,7 @@ export default {
     }
   },
   generate: {
-    dir: '/var/www'
+    dir: '/Users/Harley-xk/Works/博客/Vapor/Valog/Public'
   }
 
 }
