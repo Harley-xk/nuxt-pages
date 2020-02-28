@@ -76,7 +76,7 @@ export default {
     }
   },
   generate: {
-    dir: '/Users/Harley-xk/Works/博客/Vapor/Valog/Public'
+    dir: '/var/www'
   }
 
 }
