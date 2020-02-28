@@ -1,7 +1,8 @@
 <template>
   <b-navbar toggleable="md"
             type="dark"
-            variant="dark" sticky>
+            variant="dark"
+            sticky>
     <b-navbar-brand href="/">Harley's Studio</b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -20,7 +21,8 @@
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
         <b-nav-form>
-          <b-form-input size="sm"
+          <b-form-input name="key"
+                        size="sm"
                         class="mr-sm-2"
                         placeholder="搜索文章"></b-form-input>
           <b-button size="sm"
@@ -68,13 +70,12 @@ export default {
 </script>
 
 <style>
-  .navbar {
-    padding: 0.25rem 1rem;
-    box-shadow: 0px 2px 2px #00000055;
-  }
+.navbar {
+  padding: 0.25rem 1rem;
+  box-shadow: 0px 2px 2px #00000055;
+}
 
-  .navbar-nav {
-    margin: 0;
-  }
-  
+.navbar-nav {
+  margin: 0;
+}
 </style>  
