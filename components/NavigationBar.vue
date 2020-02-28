@@ -47,12 +47,12 @@ export default {
     return {
       links: [
         {
-          name: '首页',
+          name: '文章',
           href: '/'
         },
         {
-          name: '文章',
-          href: '/posts'
+          name: '项目',
+          href: '/poojects'
         },
         {
           name: '关于',

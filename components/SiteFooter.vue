@@ -6,7 +6,7 @@
         Website@<a href="https://nuxtjs.org/">Nuxt.js</a>
       </span> |
       <span class="site-footer-item">
-        Server@<a-inverse<a href="https://vapor.codes/">Vapor</a>
+        Server@<a href="https://vapor.codes/">Vapor</a>
       </span> |
       <span class="site-footer-item">
         Coding@<a href="https://github.com/Harley-xk">Harley-xk</a>
