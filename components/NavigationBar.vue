@@ -27,7 +27,9 @@
                         placeholder="搜索文章"></b-form-input>
           <b-button size="sm"
                     class="my-2 my-sm-0"
-                    type="submit">搜索</b-button>
+                    type="submit">
+                    <span class="iconfont icon-search"></span>
+                    </b-button>
         </b-nav-form>
 
         <b-nav-item-dropdown right>
