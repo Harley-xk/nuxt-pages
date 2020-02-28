@@ -38,6 +38,8 @@
 
     </split-container>
 
+    <siteFooter />
+
   </div>
 </template>
 
@@ -49,6 +51,7 @@ import Banner from '~/components/Banner.vue'
 import SplitContainer from '~/components/SplitContainer.vue'
 import Chrysan from '~/components/Chrysan.vue'
 import Markdown from '~/components/Markdown.vue'
+import SiteFooter from '~/components/SiteFooter.vue'
 
 export default {
   components: {
@@ -57,7 +60,8 @@ export default {
     Banner,
     Chrysan,
     "split-container": SplitContainer,
-    Markdown
+    Markdown,
+    SiteFooter,
   },
   created () {
     this.id = this.$route.query.id
@@ -133,6 +137,7 @@ export default {
 }
 
 .post-footer {
+  margin: 1rem 0;
   font-size: 0.9rem;
   line-height: 2rem;
   color: #8b8b8b;

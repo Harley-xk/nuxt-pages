@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <NavigationBar current="首页"></NavigationBar>
+    <NavigationBar current="文章"></NavigationBar>
 
     <banner image="/images/2020.jpg">
       <div class="title">Harley's Studio</div>
@@ -21,7 +21,7 @@
     </split-container>
 
     <site-footer></site-footer>
-    
+
   </div>
 </template>
 

@@ -62,7 +62,7 @@ export default {
       }
     },
     '/post-images': {
-      target: 'http://localhost:8888'
+      target: 'http://localhost:8080'
     }
   },
   /*
@@ -76,7 +76,7 @@ export default {
     }
   },
   generate: {
-    dir: '/var/www'
+    dir: '/Users/Harley-xk/Works/博客/Vapor/Valog/Public'
   }
 
 }

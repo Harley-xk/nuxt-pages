@@ -2,7 +2,7 @@
   <b-navbar toggleable="md"
             type="dark"
             variant="dark" sticky>
-    <b-navbar-brand href="#">Harley's Studio</b-navbar-brand>
+    <b-navbar-brand href="/">Harley's Studio</b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
