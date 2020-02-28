@@ -20,6 +20,8 @@
                           :number-of-pages="totalPages"></b-pagination-nav>
     </split-container>
 
+    <site-footer></site-footer>
+    
   </div>
 </template>
 
@@ -31,6 +33,7 @@ import SideMenu from '~/components/SideMenu.vue'
 import PostList from '~/components/PostList.vue'
 import Banner from '~/components/Banner.vue'
 import Chrysan from '~/components/Chrysan.vue'
+import SiteFooter from '~/components/SiteFooter.vue'
 
 export default {
   components: {
@@ -39,7 +42,8 @@ export default {
     NavigationBar,
     SideMenu,
     Chrysan,
-    'post-list': PostList
+    'post-list': PostList,
+    'site-footer': SiteFooter,
   },
   created () {
     var page = this.$route.query.page
