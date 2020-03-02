@@ -3,18 +3,20 @@
 
     <div class="log-control">
       <span>更新时间: {{data.time}}</span>
-      <div>
+      <!-- <span>删除</span> -->
+      <span class="log-control-placehokder"></span>
+      <span>
         <input type="checkbox"
                v-model="shouldBreakLines"
                id="breakLines"
                name="breakLines">
-        <label for="breakLines">自动换行</label>
-      </div>
-
+                     <label for="breakLines">自动换行</label>
+      </span>
     </div>
 
-    <pre :style="preStyles">
-          <div v-html="coloredHtml" class="console-log"></div>
+    <pre class="log-content"
+         :style="preStyles">
+          <div v-html="coloredHtml"></div>
     </pre>
     <!-- <div>{{coloredHtml}}</div> -->
   </div>
@@ -51,13 +53,29 @@ export default {
 .log-control {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: stretch;
   color: #8c8c8c;
   font-size: 14px;
+  line-height: 1.5rem;
+}
+
+.log-control-placehokder {
+  flex-grow: 2;
+}
+
+.log-control span {
+  margin: 0 0.5rem;
 }
 
 .log-control label {
-  margin: 0 4px;
-  line-height: 16px;
+  line-height: 1.5rem;
+}
+
+.log-content {
+  background: #f4f4f4;
+  padding: 0 2rem;
+  border-radius: 8px;
+  margin-top: 8px;
+  word-break: break-all;
 }
 </style>
