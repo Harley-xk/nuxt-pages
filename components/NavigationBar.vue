@@ -20,7 +20,7 @@
         <b-nav-item-dropdown right>
           <!-- Using 'button-content' slot -->
           <template v-slot:button-content>
-            <em>管理员</em>
+            <span>管理员</span>
           </template>
           <b-dropdown-item href="/admin/logs">系统日志</b-dropdown-item>
           <b-dropdown-item href="#">其他</b-dropdown-item>
