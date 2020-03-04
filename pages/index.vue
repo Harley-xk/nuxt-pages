@@ -49,6 +49,9 @@ export default {
     'post-list': PostList,
     'site-footer': SiteFooter,
   },
+  mounted () {
+    console.log(this.$route)
+  },
   created () {
     var page = this.$route.query.page
     if (page === null || page === undefined) {
