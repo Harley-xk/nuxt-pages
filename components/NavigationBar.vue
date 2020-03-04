@@ -32,6 +32,7 @@
       <b-navbar-nav class="ml-auto">
         <b-nav-form>
           <b-form-input name="key"
+          v-model="_keyword"
                         size="sm"
                         class="mr-sm-2"
                         placeholder="搜索文章"></b-form-input>
@@ -76,7 +77,13 @@ export default {
     }
   },
   props: {
-    current: ''
+    current: '',
+    keyword: '',
+  },
+  computed: {
+    _keyword() {
+      return this.keyword
+    }
   }
 }
 </script>

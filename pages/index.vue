@@ -1,7 +1,9 @@
 <template>
   <div>
 
-    <NavigationBar current="文章"></NavigationBar>
+    <NavigationBar current="文章"
+                   :keyword="$route.query.key">
+    </NavigationBar>
 
     <banner image="/images/2020.jpg">
       <div class="title">Harley's Studio</div>
@@ -13,11 +15,12 @@
         <SideMenu></SideMenu>
       </template>
 
-        <chrysan :loading="loading"></chrysan>
-        <post-list :posts="postPage.items"></post-list>
-        <b-pagination-nav class="pagination-nav" v-show="postPage.metadata.total > pageSize"
-                          :link-gen="linkGen"
-                          :number-of-pages="totalPages"></b-pagination-nav>
+      <chrysan :loading="loading"></chrysan>
+      <post-list :posts="postPage.items"></post-list>
+      <b-pagination-nav class="pagination-nav"
+                        v-show="postPage.metadata.total > pageSize"
+                        :link-gen="linkGen"
+                        :number-of-pages="totalPages"></b-pagination-nav>
     </split-container>
 
     <site-footer></site-footer>
@@ -50,7 +53,11 @@ export default {
     if (page === null || page === undefined) {
       page = 1
     }
-    this.refreshData(page)
+    var key = this.$route.query.key
+    if (key === null || key === undefined) {
+      key = ''
+    }
+    this.refreshData(page, key)
   },
   data () {
     return {
@@ -72,9 +79,13 @@ export default {
     }
   },
   methods: {
-    refreshData (page) {
+    refreshData (page, key) {
       this.loading = true
-      this.$axios.get(`posts?page=` + page).then(res => {
+      var query = 'page=' + page
+      if (key.length > 0) {
+        query += '&key=' + key
+      }
+      this.$axios.get(`posts?` + query).then(res => {
         this.postPage = res.data
         this.loading = false
         console.log(res)
@@ -91,7 +102,6 @@ export default {
 </script>
 
 <style>
-
 .title {
   font-family: "Helvetica Neue", Arial, sans-serif;
   font-weight: 500;
@@ -106,10 +116,9 @@ export default {
 }
 
 .page-item.active .page-link {
-    z-index: 3;
-    color: #fff;
-    background-color: #526488;
-    border-color: #526488;
+  z-index: 3;
+  color: #fff;
+  background-color: #526488;
+  border-color: #526488;
 }
-
 </style>
