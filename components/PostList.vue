@@ -5,10 +5,12 @@
          v-for="(item, index) in preocessedPosts"
          :key="index">
       <a class="post-list-item-title"
-         :href="'/post?id=' + item.id" v-html="item.title">
+         :href="'/post?id=' + item.id"
+         v-html="item.title">
       </a>
 
-      <div class="post-list-item-intro" v-html="item.intro">
+      <div class="post-list-item-intro"
+           v-html="item.intro">
       </div>
       <div class="post-list-item-tags">
         <a class="post-tags-item"
@@ -40,7 +42,7 @@
 export default {
   props: ['posts', 'highlighting'],
   computed: {
-    preocessedPosts() {
+    preocessedPosts () {
       if (this.highlighting && this.highlighting.length > 0) {
         this.posts.map((item, index) => {
           // 匹配关键字正则
@@ -48,13 +50,13 @@ export default {
           // 高亮替换v-html值
           let replaceString =
             '<span class="searching-hilighted">' + this.highlighting + '</span>'
-            console.log('replacing ' + this.posts[index])
-          this.posts[index].title = item.title.replace(replaceReg,replaceString)
+          console.log('replacing ' + this.posts[index])
+          this.posts[index].title = item.title.replace(replaceReg, replaceString)
           if (this.posts[index].intro && this.posts[index].intro.length > 0) {
-          this.posts[index].intro = item.intro.replace(replaceReg,replaceString)
+            this.posts[index].intro = item.intro.replace(replaceReg, replaceString)
           }
         })
-      }        
+      }
       return this.posts
     }
   }
@@ -102,7 +104,7 @@ export default {
 
 .post-tags-item:hover {
   color: rgb(255, 72, 0);
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .post-tags-item .iconfont {
@@ -111,7 +113,7 @@ export default {
 }
 
 .searching-hilighted {
-    color: rgb(255, 72, 0);
+  color: rgb(255, 72, 0);
 }
 
 /* 

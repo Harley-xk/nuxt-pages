@@ -107,6 +107,7 @@ export default {
   font-family: "Helvetica Neue", Arial, sans-serif;
   font-weight: 500;
   font-size: 3.5rem;
+  line-height: 4rem;
   color: white;
   letter-spacing: 2px;
 }
