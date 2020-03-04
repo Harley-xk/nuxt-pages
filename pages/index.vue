@@ -16,7 +16,8 @@
       </template>
 
       <chrysan :loading="loading"></chrysan>
-      <post-list :posts="postPage.items"></post-list>
+      <post-list :posts="postPage.items"
+      :highlighting="$route.query.key"></post-list>
       <b-pagination-nav class="pagination-nav"
                         v-show="postPage.metadata.total > pageSize"
                         :link-gen="linkGen"

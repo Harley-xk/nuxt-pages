@@ -2,15 +2,13 @@
   <div class="post-list">
     <!-- <b-list-group> -->
     <div class="post-list-item"
-         v-for="(item, index) in posts"
+         v-for="(item, index) in preocessedPosts"
          :key="index">
       <a class="post-list-item-title"
-         :href="'/post?id=' + item.id">
-        {{item.title}}
+         :href="'/post?id=' + item.id" v-html="item.title">
       </a>
 
-      <div class="post-list-item-intro">
-        {{item.intro}}
+      <div class="post-list-item-intro" v-html="item.intro">
       </div>
       <div class="post-list-item-tags">
         <a class="post-tags-item"
@@ -40,7 +38,26 @@
 
 <script>
 export default {
-  props: ['posts']
+  props: ['posts', 'highlighting'],
+  computed: {
+    preocessedPosts() {
+      if (this.highlighting && this.highlighting.length > 0) {
+        this.posts.map((item, index) => {
+          // 匹配关键字正则
+          let replaceReg = new RegExp(this.highlighting, 'ig')
+          // 高亮替换v-html值
+          let replaceString =
+            '<span class="searching-hilighted">' + this.highlighting + '</span>'
+            console.log('replacing ' + this.posts[index])
+          this.posts[index].title = item.title.replace(replaceReg,replaceString)
+          if (this.posts[index].intro && this.posts[index].intro.length > 0) {
+          this.posts[index].intro = item.intro.replace(replaceReg,replaceString)
+          }
+        })
+      }        
+      return this.posts
+    }
+  }
 }
 </script>
 
@@ -91,6 +108,10 @@ export default {
 .post-tags-item .iconfont {
   font-size: 12px;
   margin-right: 4px;
+}
+
+.searching-hilighted {
+    color: rgb(255, 72, 0);
 }
 
 /* 
