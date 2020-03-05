@@ -13,9 +13,11 @@ export default function({ $axios, redirect }) {
     }
   )
   $axios.onRequest(config => {
-    config.headers['x-token'] = "this is a token"
-    console.log('Making request to:')
-    console.log(config)
+    var token = localStorage.token
+    if (token && token.length > 0) {
+      console.log('set Authorization header: Bearer ' + token)
+      config.headers['Authorization'] = 'Bearer ' + token
+    }
   })
 
   // response interceptor

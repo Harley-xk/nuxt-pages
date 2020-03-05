@@ -17,7 +17,7 @@
 
       <chrysan :loading="loading"></chrysan>
       <post-list :posts="postPage.items"
-      :highlighting="$route.query.key"></post-list>
+                 :highlighting="$route.query.key"></post-list>
       <b-pagination-nav class="pagination-nav"
                         v-show="postPage.metadata.total > pageSize"
                         :link-gen="linkGen"
@@ -51,8 +51,6 @@ export default {
   },
   mounted () {
     console.log(this.$route)
-  },
-  created () {
     var page = this.$route.query.page
     if (page === null || page === undefined) {
       page = 1
@@ -92,7 +90,6 @@ export default {
       this.$axios.get(`posts?` + query).then(res => {
         this.postPage = res.data
         this.loading = false
-        console.log(res)
       })
     },
     linkGen (pageNum) {
