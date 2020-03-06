@@ -3,8 +3,11 @@ export default function({ $axios, redirect }) {
   $axios.interceptors.request.use(
     config => {
       // do something before request is sent
-      console.log('do something before request is sent in interceptors')
-
+      var token = localStorage.token
+      if (token && token.length > 0) {
+        console.log('set Authorization header: Bearer ' + token)
+        config.headers['Authorization'] = 'Bearer ' + token
+      }
       return config
     },
     error => {
@@ -12,14 +15,6 @@ export default function({ $axios, redirect }) {
       return Promise.reject(error)
     }
   )
-  $axios.onRequest(config => {
-    var token = localStorage.token
-    if (token && token.length > 0) {
-      console.log('set Authorization header: Bearer ' + token)
-      config.headers['Authorization'] = 'Bearer ' + token
-    }
-  })
-
   // response interceptor
   $axios.interceptors.response.use(
     /**

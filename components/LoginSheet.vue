@@ -35,6 +35,7 @@
                         size="sm"
                         v-model="password"
                         :state="passState"
+                        @keydown.enter="handleOk"
                         placeholder="请输入密码"></b-form-input>
         </b-col>
       </b-row>
