@@ -17,7 +17,8 @@
           {{link.name}}
         </b-nav-item>
 
-        <b-nav-item-dropdown right>
+        <!-- 管理员模块，只有管理员可见 -->
+        <b-nav-item-dropdown v-if="isAdmin" right>
           <!-- Using 'button-content' slot -->
           <template v-slot:button-content>
             <span>管理员</span>
@@ -46,7 +47,7 @@
           <b-nav-item-dropdown v-if="isLogined"
                                right>
             <template v-slot:button-content>
-              <em>{{username}}</em>
+              <em>{{user.nickname}}</em>
             </template>
             <!-- <b-dropdown-item href="#">Profile</b-dropdown-item> -->
             <b-dropdown-item @click="signOut">登出</b-dropdown-item>
@@ -54,17 +55,24 @@
           <b-button class="btn-login"
                     variant="outline-light"
                     size="sm"
+                    v-b-modal.modal-login
                     v-else>登录</b-button>
         </div>
       </b-navbar-nav>
-
     </b-collapse>
+    <!-- 登录框 -->
+    <loginSheet @logined="userDidLogin"></loginSheet>
   </b-navbar>
 </template>
 
 <script>
 
+import LoginSheet from '~/components/LoginSheet.vue'
+
 export default {
+  components: {
+    LoginSheet
+  },
   data () {
     return {
       links: [
@@ -82,7 +90,7 @@ export default {
         },
       ],
       isLogined: false,
-      username: '',
+      user: null,
     }
   },
   props: {
@@ -93,6 +101,13 @@ export default {
     _keyword () {
       return this.keyword
     },
+    isAdmin() {
+    if (!this.isLogined || this.user == null) {
+      return false
+    }
+    /// 拥有管理员权限
+    return this.user.roles.indexOf('admin') >= 0
+    }
   },
   mounted () {
     this.autoLogin()
@@ -103,23 +118,26 @@ export default {
       if (!this.isLogined) {
         this.$axios.post('autoLogin').then(res => {
           if (res.status == 200) {
-            this.$userCenter.userDidLogin(res.data)
-            this.isLogined = true
-            this.username = res.data.nickname
+            this.userDidLogin(res)
           }
         })
       } else {
         var user = this.$userCenter.user
         this.isLogined = true
-        this.username = user.nickname
+        this.user = user
       }
     },
     signOut () {
-      this.$axios.post('signout').then(res => {
+      this.$axios.post('signout').finally(res => {
         this.$userCenter.signOut()
         this.isLogined = false
-        this.username = ''
+        this.user = null
       })
+    },
+    userDidLogin (res) {
+      this.$userCenter.userDidLogin(res.data)
+      this.isLogined = true
+      this.user = res.data.user
     }
   }
 }

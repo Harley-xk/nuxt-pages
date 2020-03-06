@@ -6,9 +6,9 @@ export const userCenter = {
     return this.user !== null
   },
   userDidLogin(loginData) {
-    this.user = user
+    this.user = loginData.user
     localStorage.user = JSON.stringify(loginData.user)
-    localStorage.token = loginData.token
+    localStorage.token = loginData.token.value
   },
   signOut() {
     this.user = null
