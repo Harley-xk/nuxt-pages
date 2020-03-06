@@ -17,5 +17,8 @@ export const userCenter = {
   }
 }
 
-userCenter.user = JSON.parse(localStorage.user)
+var userData = localStorage.user
+if (userData && userData.length > 0) {
+  userCenter.user = JSON.parse(userData)
+}
 vue.prototype.$userCenter = userCenter
