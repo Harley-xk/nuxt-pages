@@ -18,13 +18,23 @@
         </b-nav-item>
 
         <!-- 管理员模块，只有管理员可见 -->
-        <b-nav-item-dropdown v-if="isAdmin" right>
+        <b-nav-item-dropdown v-if="isAdmin"
+                             right>
           <!-- Using 'button-content' slot -->
           <template v-slot:button-content>
-            <span>管理员</span>
+            <span :class="current === '管理员' ? 'nav-drop-active' : ''">
+              管理员
+            </span>
           </template>
-          <b-dropdown-item href="/admin/logs">系统日志</b-dropdown-item>
-          <b-dropdown-item href="#">其他</b-dropdown-item>
+          <b-dropdown-item href="/admin/logs/application">
+            系统日志
+          </b-dropdown-item>
+          <b-dropdown-item href="/admin/logs/accesslog">
+            访问日志
+          </b-dropdown-item>
+          <!-- <b-dropdown-item href="#">
+            其他
+          </b-dropdown-item> -->
         </b-nav-item-dropdown>
 
       </b-navbar-nav>
@@ -101,12 +111,12 @@ export default {
     _keyword () {
       return this.keyword
     },
-    isAdmin() {
-    if (!this.isLogined || this.user == null) {
-      return false
-    }
-    /// 拥有管理员权限
-    return this.user.roles.indexOf('admin') >= 0
+    isAdmin () {
+      if (!this.isLogined || this.user == null) {
+        return false
+      }
+      /// 拥有管理员权限
+      return this.user.roles.indexOf('admin') >= 0
     }
   },
   mounted () {
@@ -151,6 +161,10 @@ export default {
 
 .navbar-nav {
   margin: 0;
+}
+
+.nav-drop-active {
+  color: white;
 }
 
 @media screen and (min-width: 768px) {

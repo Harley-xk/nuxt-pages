@@ -30,6 +30,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    {src: '~/plugins/filters.js', mode: 'client'},
     {src: '~/plugins/request.js', mode: 'client'},
     {src: '~/plugins/logins.js', mode: 'client'},
   ],

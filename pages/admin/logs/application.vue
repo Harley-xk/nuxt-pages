@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     refreshData() {
-      this.$axios.get('admin/logs?type=application').then( res => {
+      this.$axios.get('admin/logs/application').then( res => {
         this.logContents = res.data
       })
     }
