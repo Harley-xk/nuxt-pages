@@ -1,5 +1,5 @@
 <template>
-  <div class="__nuxt-error-page">
+  <div class="error-page">
     <img src="/images/404-mars.png"
          alt="">
     <div>
@@ -42,7 +42,7 @@ export default {
 </script>
 
 <style>
-.__nuxt-error-page {
+.error-page {
   padding: 1rem;
   background: #101125;
   color: #47494e;
@@ -61,6 +61,10 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
+}
+
+.error-page img {
+  max-width: 100%;
 }
 
 .error-message {
