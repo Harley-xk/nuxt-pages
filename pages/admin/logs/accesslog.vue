@@ -21,7 +21,7 @@
           <b-row>
             <b-col size="1">
               <span class="iconfont icon-address"></span>
-              <span v-if="log.geoLocation !== null && log.geoLocation.city !== null">{{log.geoLocation.city}}</span>
+              <span v-if="log.geoLocation !== null || log.geoLocation.city !== null">{{log.geoLocation.city}}</span>
               <span v-else>{{log.ip}}</span>
             </b-col>
             <b-col size="1">
