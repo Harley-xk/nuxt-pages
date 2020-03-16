@@ -1,8 +1,6 @@
 <template>
   <div>
 
-    <NavigationBar current="管理员"></NavigationBar>
-
     <div class="log-container">
       <chrysan :loading="loading"></chrysan>
 
@@ -21,8 +19,7 @@
           <b-row>
             <b-col size="1">
               <span class="iconfont icon-address"></span>
-              <span v-if="log.geoLocation !== null || log.geoLocation.city !== null">{{log.geoLocation.city}}</span>
-              <span v-else>{{log.ip}}</span>
+              <span>{{geoLocation(log)}}</span>
             </b-col>
             <b-col size="1">
               <span class="iconfont icon-time"></span>
@@ -67,23 +64,17 @@
                         :number-of-pages="totalPages"></b-pagination-nav>
     </div>
 
-    <siteFooter></siteFooter>
-
   </div>
 </template>
 
 <script>
 
-import NavigationBar from '~/components/NavigationBar.vue'
 import Chrysan from '~/components/Chrysan.vue'
-import SiteFooter from '~/components/SiteFooter.vue'
 import Consolelog from '~/components/ConsoleLog.vue';
 
 export default {
   components: {
-    NavigationBar,
     Chrysan,
-    SiteFooter,
     Consolelog,
   },
   data () {
@@ -124,6 +115,21 @@ export default {
         this.logsPage = res.data
         this.loading = false
       })
+    },
+        geoLocation (log) {
+      var string = ''
+      if (log.geoLocation) {
+        let location = log.geoLocation
+        if (location.city) {
+          string += location.city
+        }
+        if (location.country) {
+          string += ' · ' + location.country
+        }
+        return string
+      } else {
+        return log.ip
+      }
     },
     linkGen (pageNum) {
       // this.postPage.items = []
