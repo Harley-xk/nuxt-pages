@@ -45,7 +45,7 @@
                         placeholder="搜索文章"></b-form-input>
           <b-button size="sm"
                     class="my-2 my-sm-0"
-                    type="submit">
+                    @click="onSearch">
             <span class="iconfont icon-search"></span>
           </b-button>
         </b-nav-form>
@@ -107,15 +107,13 @@ export default {
       ],
       isLogined: false,
       user: null,
+      _keyword: ''
     }
   },
   props: {
     keyword: '',
   },
   computed: {
-    _keyword () {
-      return this.keyword
-    },
     isAdmin () {
       if (!this.isLogined || this.user == null) {
         return false
@@ -134,9 +132,15 @@ export default {
     }
   },
   mounted () {
+    this._keyword = this.keyword
     this.autoLogin()
+          console.log('searching ' + this._keyword)
   },
   methods: {
+    onSearch () {
+      console.log('searching ' + this._keyword)
+      this.$router.push({ name: 'index', query: { key: this._keyword }})
+    },
     autoLogin () {
       this.isLogined = this.$userCenter.isLogined()
       if (!this.isLogined) {
