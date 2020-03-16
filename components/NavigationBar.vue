@@ -13,7 +13,7 @@
         <b-nav-item v-for="link in links"
                     :key="link.name"
                     :href="link.href"
-                    :active="current===link.name">
+                    :active="$route.path===link.href">
           {{link.name}}
         </b-nav-item>
 
@@ -22,19 +22,15 @@
                              right>
           <!-- Using 'button-content' slot -->
           <template v-slot:button-content>
-            <span :class="current === '管理员' ? 'nav-drop-active' : ''">
+            <span :class="isInAdmin ? 'nav-drop-active' : ''">
               管理员
             </span>
           </template>
-          <b-dropdown-item href="/admin/logs/application">
-            系统日志
+          <b-dropdown-item v-for="link in adminLinks"
+                           :key="link.name"
+                           :href="link.href">
+            {{link.name}}
           </b-dropdown-item>
-          <b-dropdown-item href="/admin/logs/accesslog">
-            访问日志
-          </b-dropdown-item>
-          <!-- <b-dropdown-item href="#">
-            其他
-          </b-dropdown-item> -->
         </b-nav-item-dropdown>
 
       </b-navbar-nav>
@@ -92,11 +88,21 @@ export default {
         },
         {
           name: '项目',
-          href: '/poojects'
+          href: '/projects'
         },
         {
           name: '关于',
           href: '/about'
+        },
+      ],
+      adminLinks: [
+        {
+          name: '系统日志',
+          href: '/admin/logs/application'
+        },
+        {
+          name: '访问日志',
+          href: '/admin/logs/accesslog'
         },
       ],
       isLogined: false,
@@ -104,7 +110,6 @@ export default {
     }
   },
   props: {
-    current: '',
     keyword: '',
   },
   computed: {
@@ -117,6 +122,15 @@ export default {
       }
       /// 拥有管理员权限
       return this.user.roles.indexOf('admin') >= 0
+    },
+    // 是否在管理员页面
+    isInAdmin () {
+      var root = this.$route.path.split('/')[1]
+      console.log(this.$route)
+      return (root && root === 'admin')
+    },
+    current () {
+      return this.$route.path
     }
   },
   mounted () {

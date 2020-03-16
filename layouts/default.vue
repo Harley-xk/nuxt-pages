@@ -1,13 +1,29 @@
 <template>
   <div>
+    <NavigationBar current="文章"
+                   :keyword="$route.query.key">
+    </NavigationBar>
     <nuxt />
+    <SiteFooter></SiteFooter>
   </div>
 </template>
 
+<script>
+import NavigationBar from '~/components/NavigationBar.vue'
+import SiteFooter from '~/components/SiteFooter.vue'
+
+export default {
+  components: {
+    NavigationBar,
+    SiteFooter,
+  }
+}
+</script>
+
 <style>
 html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;

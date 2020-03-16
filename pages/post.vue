@@ -1,8 +1,6 @@
 <template>
   <div>
 
-    <NavigationBar current="文章"></NavigationBar>
-
     <banner image="/images/2020.jpg">
       <div class="post-title">{{title}}</div>
         <div class="post-meta" v-if="haveContents">
@@ -38,30 +36,24 @@
 
     </split-container>
 
-    <siteFooter />
-
   </div>
 </template>
 
 <script>
 
-import NavigationBar from '~/components/NavigationBar.vue'
 import SideMenu from '~/components/SideMenu.vue'
 import Banner from '~/components/Banner.vue'
 import SplitContainer from '~/components/SplitContainer.vue'
 import Chrysan from '~/components/Chrysan.vue'
 import Markdown from '~/components/Markdown.vue'
-import SiteFooter from '~/components/SiteFooter.vue'
 
 export default {
   components: {
-    NavigationBar,
     SideMenu,
     Banner,
     Chrysan,
     "split-container": SplitContainer,
     Markdown,
-    SiteFooter,
   },
   created () {
     this.id = this.$route.query.id

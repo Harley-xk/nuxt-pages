@@ -1,10 +1,5 @@
 <template>
   <div>
-
-    <NavigationBar current="文章"
-                   :keyword="$route.query.key">
-    </NavigationBar>
-
     <banner image="/images/2020.jpg">
       <div class="title">Harley's Studio</div>
     </banner>
@@ -23,31 +18,24 @@
                         :link-gen="linkGen"
                         :number-of-pages="totalPages"></b-pagination-nav>
     </split-container>
-
-    <site-footer></site-footer>
-
   </div>
 </template>
 
 <script>
 
-import NavigationBar from '~/components/NavigationBar.vue'
 import SplitContainer from '~/components/SplitContainer.vue'
 import SideMenu from '~/components/SideMenu.vue'
 import PostList from '~/components/PostList.vue'
 import Banner from '~/components/Banner.vue'
 import Chrysan from '~/components/Chrysan.vue'
-import SiteFooter from '~/components/SiteFooter.vue'
 
 export default {
   components: {
     Banner,
     'split-container': SplitContainer,
-    NavigationBar,
     SideMenu,
     Chrysan,
     'post-list': PostList,
-    'site-footer': SiteFooter,
   },
   mounted () {
     console.log(this.$route)
