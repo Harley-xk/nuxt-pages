@@ -33,6 +33,8 @@ export default {
   props: ["content"],
   computed: {
     rendered () {
+      var anchor = require('markdown-it-anchor').default
+      md.use(anchor)
       return md.render(this.content)
     }
   }
@@ -40,6 +42,15 @@ export default {
 </script>
 
 <style lang="css">
+
+h1::before,h2::before,h3::before {
+  content: "sss";
+  display: block;
+  height: 64px;
+  margin-top: -64px;
+  visibility: hidden;
+}
+
 code {
   padding: 2px 4px;
   border-radius: 3px;

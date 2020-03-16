@@ -7,11 +7,11 @@
 
     <div v-for="(section, index) in sections"
          :key="index">
-      <a class="section-title section-frist-level"
+      <a :class="linkClass('first', section.title)"
          :href="'#' + section.title">{{section.title}}</a>
       <div v-for="(child, cindex) in section.children"
            :key="cindex">
-        <a class="section-title section-second-level"
+      <a :class="linkClass('second', child.title)"
            :href="'#' + child.title">{{child.title}}</a>
       </div>
     </div>
@@ -22,7 +22,19 @@
 <script>
 
 export default {
-  props: ['sections']
+  props: ['sections', 'active'],
+  methods: {
+    linkClass(level, title) {
+      var cls = 'section-title'
+      if (level && level.length > 0) {
+        cls += ` section-${level}-level`
+      }
+      if (title === this.active) {
+        cls += ` section-active`
+      }
+      return cls
+    }
+  }
 }
 </script>
 
@@ -39,7 +51,7 @@ export default {
   padding: 1rem 0rem;
 }
 
-.section-frist-level {
+.section-first-level {
   font: 1.25rem;
   color: #888;
 }
@@ -57,5 +69,4 @@ export default {
 .section-active {
   color: #42b983;
 }
-
 </style>

@@ -3,30 +3,27 @@
 
     <banner image="/images/2020.jpg">
       <div class="post-title">{{title}}</div>
-        <div class="post-meta" v-if="haveContents">
-          <span class="post-meta-item">字数: {{postLength}}</span>
-          <span class="post-meta-item">阅读: {{readingCosts}} min</span>
-        </div>
     </banner>
 
     <split-container>
 
       <template v-slot:side-menu>
-        <PostSections :sections="details.meta.sections"></PostSections>
+        <PostSections :sections="details.meta.sections" :active="active"></PostSections>
       </template>
 
       <chrysan :loading="loading"></chrysan>
 
       <div class="post-content"
            v-if="haveContents">
+        <div class="post-meta" v-if="haveContents">
+          <span class="post-meta-item">发布: {{details.meta.date}}</span>
+          <span class="post-meta-item">字数: {{postLength}}</span>
+          <span class="post-meta-item">阅读: {{readingCosts}} min</span>
+        </div>
 
         <markdown :content="details.content"></markdown>
 
         <div class="post-footer">
-          <span class="post-footer-item">
-            <span class="iconfont icon-calendar-2"></span>
-            {{details.meta.date}}
-          </span>
           <span class="post-footer-item">
             <span class="iconfont icon-reading"></span>
             {{details.meta.views}}
@@ -55,6 +52,14 @@ export default {
     "split-container": SplitContainer,
     Markdown,
   },
+  mounted () {
+    // 监听滚动事件
+    window.addEventListener('scroll', this.onScroll)
+  },
+  destroy () {
+    // 必须移除监听器，不然当该vue组件被销毁了，监听器还在就会出错
+    window.removeEventListener('scroll', this.onScroll)
+  },
   created () {
     this.id = this.$route.query.id
     this.getContents()
@@ -69,7 +74,8 @@ export default {
           sections: [],
         },
         content: ''
-      }
+      },
+      active: ''
     }
   },
   computed: {
@@ -78,10 +84,10 @@ export default {
         && this.details.content !== null
         && this.details.content.length > 0)
     },
-    postLength() {
+    postLength () {
       return this.details.content.length
     },
-    readingCosts() {
+    readingCosts () {
       return Math.ceil(this.postLength / 300)
     }
   },
@@ -94,6 +100,28 @@ export default {
         console.log(res)
         this.loading = false
       })
+    },
+    onScroll () {
+      // 获取所有锚点元素
+      const navContents = document.querySelectorAll('h1,h2,h3')
+      // 所有锚点元素的 offsetTop
+      const offsetTopArr = []
+      navContents.forEach(item => {
+        offsetTopArr.push(item.offsetTop)
+      })
+      // 获取当前文档流的 scrollTop
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+      // 定义当前点亮的导航下标
+      let navIndex = 0
+      for (let n = 0; n < offsetTopArr.length; n++) {
+        // 如果 scrollTop 大于等于第 n 个元素的 offsetTop 则说明 n-1 的内容已经完全不可见
+        // 那么此时导航索引就应该是 n 了
+        if (scrollTop >= offsetTopArr[n]) {
+          navIndex = n
+        }
+      }
+      // 把下标赋值给 vue 的 data
+      this.active = navContents[navIndex].innerHTML
     }
   }
 }
@@ -116,10 +144,15 @@ export default {
   line-height: 2rem;
 }
 
+.post-meta {
+  margin-bottom: 1.5rem !important;
+}
+
 .post-meta-item {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-size: 0.8rem;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 0.875rem;
   margin-right: 0.5rem;
+  color: #acacac;
 }
 
 .post-content h2:first-child {
@@ -145,5 +178,4 @@ export default {
   font-size: 14px;
   margin-right: 4px;
 }
-
 </style>
