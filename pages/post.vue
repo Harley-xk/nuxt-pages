@@ -12,7 +12,7 @@
     <split-container>
 
       <template v-slot:side-menu>
-        <SideMenu></SideMenu>
+        <PostSections :sections="details.meta.sections"></PostSections>
       </template>
 
       <chrysan :loading="loading"></chrysan>
@@ -41,7 +41,7 @@
 
 <script>
 
-import SideMenu from '~/components/SideMenu.vue'
+import PostSections from '~/components/PostSections.vue'
 import Banner from '~/components/Banner.vue'
 import SplitContainer from '~/components/SplitContainer.vue'
 import Chrysan from '~/components/Chrysan.vue'
@@ -49,7 +49,7 @@ import Markdown from '~/components/Markdown.vue'
 
 export default {
   components: {
-    SideMenu,
+    PostSections,
     Banner,
     Chrysan,
     "split-container": SplitContainer,
@@ -65,7 +65,9 @@ export default {
       title: '',
       loading: false,
       details: {
-        meta: null,
+        meta: {
+          sections: [],
+        },
         content: ''
       }
     }
