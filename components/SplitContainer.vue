@@ -24,6 +24,13 @@
   overflow: hidden;
 }
 
+.split-side-menu {
+  top: 60px;
+  height: 100%;
+  position: sticky;
+  overflow: auto;
+}
+
 /*当页面宽度小于 960px 的时候执行包裹的css*/
 @media screen and (max-width: 991px) {
   .split-side-menu {
