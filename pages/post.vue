@@ -8,27 +8,35 @@
     <split-container>
 
       <template v-slot:side-menu>
-        <PostSections :sections="details.meta.sections" :active="active"></PostSections>
+        <PostSections :sections="details.meta.sections"
+                      :active="active"></PostSections>
       </template>
 
       <chrysan :loading="loading"></chrysan>
 
       <div class="post-content"
            v-if="haveContents">
-        <div class="post-meta" v-if="haveContents">
-          <span class="post-meta-item">发布: {{details.meta.date}}</span>
-          <span class="post-meta-item">字数: {{postLength}}</span>
-          <span class="post-meta-item">阅读: {{readingCosts}} min</span>
+        <div class="post-meta"
+             v-if="haveContents">
+
+          <span class="post-meta-item">
+            <span class="iconfont icon-wrods-line"></span>
+            {{postLength}}</span>
+          <span class="post-meta-item">
+            <span class="iconfont icon-time"></span>
+            {{readingCosts}} min</span>
+          <span class="post-meta-item">
+            <span class="iconfont icon-send-line"></span>
+            {{details.meta.date}}
+          </span>
+          <span class="post-meta-item">
+            <span class="iconfont icon-read-line"></span>
+            {{details.meta.views}}
+          </span>
         </div>
 
         <markdown :content="details.content"></markdown>
 
-        <div class="post-footer">
-          <span class="post-footer-item">
-            <span class="iconfont icon-reading"></span>
-            {{details.meta.views}}
-          </span>
-        </div>
       </div>
 
     </split-container>
@@ -149,10 +157,14 @@ export default {
 }
 
 .post-meta-item {
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  /* font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif; */
   font-size: 0.875rem;
   margin-right: 0.5rem;
-  color: #acacac;
+  color: #8c8c8c;
+}
+
+.post-meta-item .iconfont {
+  font-size: 0.875rem;
 }
 
 .post-content h2:first-child {
