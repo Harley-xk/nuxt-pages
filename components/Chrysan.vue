@@ -1,20 +1,25 @@
 <template>
   <div class="chrysan d-flex justify-content-center mb-3"
        v-if="loading">
-    <b-spinner type="grow"></b-spinner>
+    <b-spinner class="chrysan-core" :small="small"
+               type="grow"></b-spinner>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['loading']
+  props: {
+    loading: false,
+    small: false
+  }
 }
 </script>
 
 <style lang="css">
-  
-  .chrysan {
-    flex-grow: 3;
-  }
-
+.chrysan {
+  flex-grow: 3;
+}
+.chrysan-core {
+  margin: auto;
+}
 </style>
