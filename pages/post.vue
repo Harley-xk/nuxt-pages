@@ -37,7 +37,9 @@
 
         <markdown :content="details.content"></markdown>
 
-        <PostCommentForm></PostCommentForm>
+        <PostCommentForm v-if="haveContents"
+        :postId="id"
+        ></PostCommentForm>
 
       </div>
 

@@ -2,33 +2,34 @@
   <div>
     <div class="comment-header">
       <div>评论</div>
-
-      <!-- <div class="flex-placeholder"></div>
-      <div v-if="!isLogined">
-        <label for="post-comment-nickname">昵称：</label>
-        <input type="text"
-               id="post-comment-nickname">
-      </div> -->
     </div>
 
     <div class="post-comment-form">
 
-      <textarea class="comment-input"
-                name=""
-                id=""
-                @keydown.ctrl.enter="sendAction"
-                @keydown.meta.enter="sendAction"></textarea>
+      <b-form-textarea class="comment-input"
+                       placeholder="开始评论..."
+                       v-model="content"
+                       :state="contentState"
+                       @keydown.ctrl.enter="sendAction"
+                       @keydown.meta.enter="sendAction"></b-form-textarea>
       <div class="comment-footer">
 
-        <div class="comment-footer-item iconfont icon-markdown"></div>
+        <div class="comment-footer-item comment-footer-tip">
+          <span class="iconfont icon-markdown"></span>
+        </div>
         <!-- （command）、⌥（option）、⇧（shift）、⇪（caps lock）、⌃（control）、↩（return）、⌅（enter） -->
         <div class="comment-footer-item flex-placeholder"></div>
-
+        <div class="comment-footer-item"
+             v-if="!isLogined">
+          <b-form-input type="text"
+          v-model="nickname"
+                        :state="nicknameState"
+                        placeholder="请输入昵称或登录"></b-form-input>
+        </div>
         <span class="comment-footer-item comment-footer-tip">⌘+⏎</span>
         <b-button size="sm"
                   variant="success"
                   @click="sendAction">发布</b-button>
-
       </div>
     </div>
   </div>
@@ -37,6 +38,14 @@
 <script>
 export default {
   props: ['postId', 'replyTo'],
+  data () {
+    return {
+      content: '',
+      nickname: '',
+      contentState: null,
+      nicknameState: null
+    }
+  },
   computed: {
     isLogined () {
       return this.$store.state.userCenter.isLogined
@@ -44,7 +53,26 @@ export default {
   },
   methods: {
     sendAction () {
-      console.log('Send Action!')
+      if (!this.validateInput()) {
+        return
+      }
+     this.$axios('posts/' + this.postId + '/comments', {
+        method: 'post',
+        data: {
+          content: this.content,
+          sender: this.nickname,
+          replyTo: this.replyTo
+        }
+      }).then(res => {
+        console.log(res)
+      }).catch(res => {
+      }).then(res => {
+      })
+    },
+    validateInput () {
+      this.contentState = this.content.length > 0
+      this.nicknameState = this.isLogined || this.nickname.length > 0
+      return this.contentState && this.nicknameState
     }
   }
 }
@@ -62,32 +90,40 @@ export default {
   /* background: #f4f4f4; */
   /* padding: 0 1rem; */
   margin-top: 1rem;
-  border: solid 1px #f4f4f4;
-  border-radius: 4px;
+  border: solid 1px #ececec;
+  border-radius: 2px;
 }
 
 .comment-input {
   width: calc(100% - 1rem);
   margin: 0.5rem;
-  min-height: 5rem;
+  min-height: 6rem;
   border: none;
-  border-radius: 0;
-  font-size: 0.75rem;
+  border-radius: 2px;
+  font-size: 0.85rem;
   padding: 0.5rem;
-  background: #f4f4f4;
+  background: #fafafa;
 }
 
 .comment-footer {
-  /* padding-top: 0.2rem; */
-  /* padding-bottom: 0.6rem; */
   margin: 0rem 0.5rem 0.5rem 0.5rem;
   display: flex;
 }
 
 .comment-footer-item {
-  line-height: 2rem;
-  margin-right: 0.5rem;
+  margin: 0 0.5rem;
 }
+
+.comment-footer-item input {
+  font-size: 0.85rem;
+  padding: 0 0.5rem;
+  background-color: #fafafa;
+  border: none;
+  border-radius: 2px;
+  height: 2rem;
+  color: #8c8c8c;
+}
+
 .comment-footer-tip {
   text-align: center;
   line-height: 2rem;
