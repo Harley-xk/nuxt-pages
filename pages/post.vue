@@ -37,6 +37,8 @@
 
         <markdown :content="details.content"></markdown>
 
+        <PostCommentForm></PostCommentForm>
+
       </div>
 
     </split-container>
@@ -51,6 +53,7 @@ import Banner from '~/components/Banner.vue'
 import SplitContainer from '~/components/SplitContainer.vue'
 import Chrysan from '~/components/Chrysan.vue'
 import Markdown from '~/components/Markdown.vue'
+import PostCommentForm from '~/components/PostCommentForm.vue'
 
 export default {
   components: {
@@ -59,6 +62,7 @@ export default {
     Chrysan,
     "split-container": SplitContainer,
     Markdown,
+    PostCommentForm,
   },
   mounted () {
     // 监听滚动事件

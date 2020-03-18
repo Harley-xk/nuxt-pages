@@ -39,7 +39,7 @@
       <b-navbar-nav class="ml-auto">
         <b-nav-form>
           <b-form-input name="key"
-                        v-model="_keyword"
+                        v-model="keyword_"
                         size="sm"
                         class="mr-sm-2"
                         placeholder="搜索文章"></b-form-input>
@@ -107,7 +107,7 @@ export default {
       ],
       isLogined: false,
       user: null,
-      _keyword: ''
+      keyword_: ''
     }
   },
   props: {
@@ -132,14 +132,14 @@ export default {
     }
   },
   mounted () {
-    this._keyword = this.keyword
+    this.keyword_ = this.keyword
     this.autoLogin()
-          console.log('searching ' + this._keyword)
+          console.log('searching ' + this.keyword_)
   },
   methods: {
     onSearch () {
-      console.log('searching ' + this._keyword)
-      this.$router.push({ name: 'index', query: { key: this._keyword }})
+      console.log('searching ' + this.keyword_)
+      this.$router.push({ name: 'index', query: { key: this.keyword_ }})
     },
     autoLogin () {
       this.isLogined = this.$userCenter.isLogined()

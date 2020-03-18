@@ -13,6 +13,11 @@ import NavigationBar from '~/components/NavigationBar.vue'
 import SiteFooter from '~/components/SiteFooter.vue'
 
 export default {
+  head: {
+    meta: [
+      { charset: 'utf-8' },
+    ]
+  },
   components: {
     NavigationBar,
     SiteFooter,
@@ -68,4 +73,9 @@ html {
   color: #fff;
   background-color: #35495e;
 }
+
+.flex-placeholder {
+  flex-grow: 99;
+}
+
 </style>
