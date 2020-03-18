@@ -37,9 +37,12 @@
 
         <markdown :content="details.content"></markdown>
 
+        <div class="comment-header">
+          评论
+        </div>
+
         <PostCommentForm v-if="haveContents"
-        :postId="id"
-        ></PostCommentForm>
+                         :postId="id"></PostCommentForm>
 
       </div>
 
@@ -195,5 +198,12 @@ export default {
 .post-footer-item .iconfont {
   font-size: 14px;
   margin-right: 4px;
+}
+
+.comment-header {
+  display: flex;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-top: 2rem;
 }
 </style>
