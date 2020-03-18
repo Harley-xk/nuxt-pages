@@ -4,7 +4,7 @@
       <div>评论</div>
 
       <!-- <div class="flex-placeholder"></div>
-      <div v-if="!$userCenter.isLogined()">
+      <div v-if="!isLogined">
         <label for="post-comment-nickname">昵称：</label>
         <input type="text"
                id="post-comment-nickname">
@@ -37,12 +37,9 @@
 <script>
 export default {
   props: ['postId', 'replyTo'],
-  mounted () {
-    console.log(this.$userCenter)
-  },
   computed: {
     isLogined () {
-      return this.$userCenter.isLogined()
+      return this.$store.state.userCenter.isLogined
     }
   },
   methods: {

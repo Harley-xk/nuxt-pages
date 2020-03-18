@@ -32,7 +32,6 @@ export default {
   plugins: [
     {src: '~/plugins/filters.js', mode: 'client'},
     {src: '~/plugins/request.js', mode: 'client'},
-    {src: '~/plugins/logins.js', mode: 'client'},
   ],
   /*
   ** Nuxt.js dev-modules

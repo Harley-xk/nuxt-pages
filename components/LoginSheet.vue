@@ -120,7 +120,7 @@ export default {
           password: this.password
         }
       }).then(res => {
-        this.$emit('logined', res)
+      this.$store.commit('userCenter/userDidLogin', res.data)
         this.$refs['modal-login'].hide()
       }).catch(res => {
         this.nameState = false

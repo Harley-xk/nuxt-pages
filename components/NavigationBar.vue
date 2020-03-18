@@ -67,7 +67,7 @@
       </b-navbar-nav>
     </b-collapse>
     <!-- 登录框 -->
-    <loginSheet @logined="userDidLogin"></loginSheet>
+    <LoginSheet></LoginSheet>
   </b-navbar>
 </template>
 
@@ -105,8 +105,6 @@ export default {
           href: '/admin/logs/accesslog'
         },
       ],
-      isLogined: false,
-      user: null,
       keyword_: ''
     }
   },
@@ -114,6 +112,12 @@ export default {
     keyword: '',
   },
   computed: {
+    isLogined () {
+      return this.$store.state.userCenter.isLogined
+    },
+    user () {
+      return this.$store.state.userCenter.user
+    },
     isAdmin () {
       if (!this.isLogined || this.user == null) {
         return false
@@ -124,7 +128,6 @@ export default {
     // 是否在管理员页面
     isInAdmin () {
       var root = this.$route.path.split('/')[1]
-      console.log(this.$route)
       return (root && root === 'admin')
     },
     current () {
@@ -142,30 +145,19 @@ export default {
       this.$router.push({ name: 'index', query: { key: this.keyword_ }})
     },
     autoLogin () {
-      this.isLogined = this.$userCenter.isLogined()
-      if (!this.isLogined) {
+      var token = localStorage.token
+      if (!this.isLogined && token && token.length > 0) {
         this.$axios.post('autoLogin').then(res => {
           if (res.status == 200) {
-            this.userDidLogin(res)
+      this.$store.commit('userCenter/userDidLogin', res.data)
           }
         })
-      } else {
-        var user = this.$userCenter.user
-        this.isLogined = true
-        this.user = user
       }
     },
     signOut () {
       this.$axios.post('signout').finally(res => {
-        this.$userCenter.signOut()
-        this.isLogined = false
-        this.user = null
+        this.$store.commit('userCenter/signOut')
       })
-    },
-    userDidLogin (res) {
-      this.$userCenter.userDidLogin(res.data)
-      this.isLogined = true
-      this.user = res.data.user
     }
   }
 }
