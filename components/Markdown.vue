@@ -14,6 +14,7 @@ var hljs = require('highlight.js')
 
 function markdownRender () {
   var md = new MarkdownIt({
+    html: true,
     highlight: function (str, lang) {
       // 添加这两行才能正确显示 <>
       str = str.replace(/&lt;/g, "<");
