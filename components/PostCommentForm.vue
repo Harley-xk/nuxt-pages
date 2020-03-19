@@ -77,11 +77,13 @@ export default {
         this.message = "发布成功！"
         this.content = ''
         this.contentState = null
+        this.$emit('commentPushed', res.data)
       }).catch(error => {
         this.state = 'error'
         if (error.response) {
           this.message = error.response.data.reason + `（${error.response.status}）`
         } else {
+          console.log(error)
           this.message = '未知错误'
         }
       })

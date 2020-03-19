@@ -35,14 +35,19 @@
           </span>
         </div>
 
-        <markdown :content="details.content"></markdown>
+        <markdown :content="details.content" anchor="1"></markdown>
 
         <div class="comment-header">
-          评论
+          评论({{details.meta.comments}})
         </div>
 
         <PostCommentForm v-if="haveContents"
-                         :postId="id"></PostCommentForm>
+                         :postId="id"
+                         @commentPushed="commentPushed"></PostCommentForm>
+
+        <PostCommentList v-if="haveContents"
+                         ref="commentsList"
+                         :postId="id"></PostCommentList>
 
       </div>
 
@@ -59,6 +64,7 @@ import SplitContainer from '~/components/SplitContainer.vue'
 import Chrysan from '~/components/Chrysan.vue'
 import Markdown from '~/components/Markdown.vue'
 import PostCommentForm from '~/components/PostCommentForm.vue'
+import PostCommentList from '~/components/PostCommentList.vue'
 
 export default {
   components: {
@@ -68,6 +74,7 @@ export default {
     "split-container": SplitContainer,
     Markdown,
     PostCommentForm,
+    PostCommentList,
   },
   mounted () {
     // 监听滚动事件
@@ -139,6 +146,10 @@ export default {
       }
       // 把下标赋值给 vue 的 data
       this.active = navContents[navIndex].innerHTML
+    },
+    commentPushed (data) {
+      this.$refs.commentsList.pushComment(data)
+      console.log(data)
     }
   }
 }
@@ -203,7 +214,10 @@ export default {
 .comment-header {
   display: flex;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 1.2rem;
   margin-top: 2rem;
+  padding: 0.5rem;
+  color: #42b983;
+  border-bottom: solid #42b983 2px;
 }
 </style>

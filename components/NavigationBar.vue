@@ -137,19 +137,19 @@ export default {
   mounted () {
     this.keyword_ = this.keyword
     this.autoLogin()
-          console.log('searching ' + this.keyword_)
+    console.log('searching ' + this.keyword_)
   },
   methods: {
     onSearch () {
       console.log('searching ' + this.keyword_)
-      this.$router.push({ name: 'index', query: { key: this.keyword_ }})
+      this.$router.push({ name: 'index', query: { key: this.keyword_ } })
     },
     autoLogin () {
       var token = localStorage.token
       if (!this.isLogined && token && token.length > 0) {
         this.$axios.post('autoLogin').then(res => {
           if (res.status == 200) {
-      this.$store.commit('userCenter/userDidLogin', res.data)
+            this.$store.commit('userCenter/userDidLogin', res.data)
           }
         })
       }

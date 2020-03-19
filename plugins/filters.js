@@ -6,7 +6,7 @@ Vue.filter('dateString', function (seconds) {
   var date = new Date(miliseconds)
 
   var options = {
-    year: 'numeric',
+    // year: 'numeric',
     month: 'numeric',
     day: 'numeric',
     hour: 'numeric',

@@ -1,5 +1,6 @@
 <template>
-  <div v-html="rendered">
+  <div :class="markdownClass"
+       v-html="rendered">
 
   </div>
 </template>
@@ -11,40 +12,64 @@ import 'highlight.js/styles/atom-one-dark-reasonable.css'
 var MarkdownIt = require('markdown-it')
 var hljs = require('highlight.js')
 
-var md = new MarkdownIt({
-  highlight: function (str, lang) {
-    // 添加这两行才能正确显示 <>
-    str = str.replace(/&lt;/g, "<");
-    str = str.replace(/&gt;/g, ">");
+function markdownRender () {
+  var md = new MarkdownIt({
+    highlight: function (str, lang) {
+      // 添加这两行才能正确显示 <>
+      str = str.replace(/&lt;/g, "<");
+      str = str.replace(/&gt;/g, ">");
 
-    if (lang && hljs.getLanguage(lang)) {
-      try {
-        return '<pre class="hljs"><code>' +
-               hljs.highlight(lang, str, true).value +
-               '</code></pre>';
-      } catch (__) {}
+      if (lang && hljs.getLanguage(lang)) {
+        try {
+          return '<pre class="hljs"><code>' +
+            hljs.highlight(lang, str, true).value +
+            '</code></pre>';
+        } catch (__) { }
+      }
+
+      return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
     }
+  });
+  return md
+}
 
-    return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
-  }
-});
+var md = markdownRender()
+var mdAnchored = markdownRender()
 
 export default {
-  props: ["content"],
+  props: {
+    content: {
+      required: true
+    },
+    anchor: {
+      default: "0"
+    },
+  },
   computed: {
+    markdownClass () {
+      var cls = 'markdown-content'
+      if (this.anchor === "1") {
+        cls += ' markdown-anchored'
+      }
+      return cls
+    },
     rendered () {
-      var anchor = require('markdown-it-anchor').default
-      md.use(anchor)
+      if (this.anchor === "1") {
+        var anchor = require('markdown-it-anchor').default
+        mdAnchored.use(anchor)
+        return mdAnchored.render(this.content)
+      }
       return md.render(this.content)
-    }
+    },
   }
 }
 </script>
 
 <style lang="css">
-
-h1::before,h2::before,h3::before {
-  content: "sss";
+.markdown-anchored h1::before,
+.markdown-anchored h2::before,
+.markdown-anchored h3::before {
+  content: "";
   display: block;
   height: 64px;
   margin-top: -64px;
@@ -71,6 +96,6 @@ pre code {
   overflow-wrap: normal;
   word-wrap: normal;
   white-space: pre;
-    background-color: unset;
+  background-color: unset;
 }
 </style>
