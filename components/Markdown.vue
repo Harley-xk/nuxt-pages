@@ -74,6 +74,13 @@ export default {
   height: 64px;
   margin-top: -64px;
   visibility: hidden;
+  pointer-events: none;
+}
+
+.markdown-anchored h1,
+.markdown-anchored h2,
+.markdown-anchored h3 {
+  pointer-events: none;
 }
 
 code {
