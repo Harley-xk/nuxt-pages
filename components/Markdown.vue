@@ -83,6 +83,17 @@ export default {
   pointer-events: none;
 }
 
+.markdown-anchored h1 {
+  font-size: 1.75rem;
+}
+.markdown-anchored h2 {
+  font-size: 1.5rem;
+  border: none;
+}
+.markdown-anchored h3 {
+  font-size: 1.25rem;
+}
+
 code {
   padding: 2px 4px;
   border-radius: 3px;
