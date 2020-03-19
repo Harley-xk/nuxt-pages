@@ -2,7 +2,7 @@
   <div class="post-comment-form">
 
     <b-form-textarea class="comment-input"
-                     placeholder="开始评论..."
+                     :placeholder="inputPlaceholder"
                      v-model="content"
                      :state="contentState"
                      @keydown.ctrl.enter="sendAction"
@@ -51,12 +51,26 @@ export default {
       nicknameState: null
     }
   },
+  mounted () {
+      // 读取本地缓存的用户输入的昵称
+      var nickname = localStorage.post_nickname
+      if (nickname && nickname.length > 0) {
+        this.nickname = nickname
+      }
+  },
   computed: {
     isLogined () {
       return this.$store.state.userCenter.isLogined
     },
     loading () {
       return this.state === 'active'
+    },
+    inputPlaceholder () {
+      if (this.replyTo && this.replyTo.sender.nickname) {
+        return "回复 " + this.replyTo.sender.nickname
+      } else {
+        return "开始讨论..."
+      }
     }
   },
   methods: {
@@ -65,18 +79,28 @@ export default {
         return
       }
       this.state = 'active'
+      var replyTo = null
+      if (this.replyTo !== undefined && this.replyTo.id !== undefined) {
+        replyTo = this.replyTo.id
+      }
+      var sender = this.nickname
+      if (this.$store.state.userCenter.isLogined) {
+        sender = null
+      }
       this.$axios('posts/' + this.postId + '/comments', {
         method: 'post',
         data: {
           content: this.content,
-          sender: this.nickname,
-          replyTo: this.replyTo
+          sender: sender,
+          replyTo: replyTo
         }
       }).then(res => {
         this.state = 'success'
         this.message = "发布成功！"
         this.content = ''
         this.contentState = null
+        // 本地缓存用户输入的昵称
+        localStorage.post_nickname = this.nickname
         this.$emit('commentPushed', res.data)
       }).catch(error => {
         this.state = 'error'
@@ -102,7 +126,7 @@ export default {
   /* background: #f4f4f4; */
   /* padding: 0 1rem; */
   margin-top: 1rem;
-  border: solid 1px #ececec;
+  border: solid 1px #f4f4f4;
   border-radius: 2px;
 }
 

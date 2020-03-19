@@ -34,7 +34,8 @@
           </span>
         </div>
 
-        <markdown :content="details.content" anchor="1"></markdown>
+        <markdown :content="details.content"
+                  anchor="1"></markdown>
 
         <div class="comment-header">
           评论({{details.meta.comments}})
@@ -45,8 +46,9 @@
                          @commentPushed="commentPushed"></PostCommentForm>
 
         <PostCommentList v-if="haveContents"
+                         :postId="id"
                          ref="commentsList"
-                         :postId="id"></PostCommentList>
+                         @commentPushed="commentPushed"></PostCommentList>
 
       </div>
 
