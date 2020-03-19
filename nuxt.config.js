@@ -79,7 +79,7 @@ export default {
     }
   },
   generate: {
-    dir: process.env.HOME === '/Users/Harley-xk' ? '//Users/Harley-xk/Works/博客/nuxt-pages/dist' : '/var/www',
+    dir: process.env.HOME === '/Users/Harley-xk' ? '/Users/Harley-xk/Works/博客/nuxt-pages/dist' : '/var/www',
     routes: ['404']
   }
 

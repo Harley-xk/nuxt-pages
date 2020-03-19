@@ -5,11 +5,10 @@
       <div class="post-title">{{title}}</div>
     </banner>
 
-    <split-container>
+    <SplitContainer>
 
       <template v-slot:side-menu>
-        <PostSections :sections="details.meta.sections"
-                      :active="active"></PostSections>
+        <PostSections :sections="details.meta.sections"></PostSections>
       </template>
 
       <chrysan :loading="loading"></chrysan>
@@ -51,7 +50,7 @@
 
       </div>
 
-    </split-container>
+    </SplitContainer>
 
   </div>
 </template>
@@ -71,18 +70,10 @@ export default {
     PostSections,
     Banner,
     Chrysan,
-    "split-container": SplitContainer,
+    SplitContainer,
     Markdown,
     PostCommentForm,
     PostCommentList,
-  },
-  mounted () {
-    // 监听滚动事件
-    window.addEventListener('scroll', this.onScroll)
-  },
-  destroy () {
-    // 必须移除监听器，不然当该vue组件被销毁了，监听器还在就会出错
-    window.removeEventListener('scroll', this.onScroll)
   },
   created () {
     this.id = this.$route.query.id
@@ -99,7 +90,6 @@ export default {
         },
         content: ''
       },
-      active: ''
     }
   },
   computed: {
@@ -124,28 +114,6 @@ export default {
         console.log(res)
         this.loading = false
       })
-    },
-    onScroll () {
-      // 获取所有锚点元素
-      const navContents = document.querySelectorAll('h1,h2,h3')
-      // 所有锚点元素的 offsetTop
-      const offsetTopArr = []
-      navContents.forEach(item => {
-        offsetTopArr.push(item.offsetTop)
-      })
-      // 获取当前文档流的 scrollTop
-      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
-      // 定义当前点亮的导航下标
-      let navIndex = 0
-      for (let n = 0; n < offsetTopArr.length; n++) {
-        // 如果 scrollTop 大于等于第 n 个元素的 offsetTop 则说明 n-1 的内容已经完全不可见
-        // 那么此时导航索引就应该是 n 了
-        if (scrollTop >= offsetTopArr[n]) {
-          navIndex = n
-        }
-      }
-      // 把下标赋值给 vue 的 data
-      this.active = navContents[navIndex].innerHTML
     },
     commentPushed (data) {
       this.details.meta.comments += 1
