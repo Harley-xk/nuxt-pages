@@ -29,23 +29,25 @@
         <span class="iconfont icon-weibo"></span>
       </a>
 
-      <b-popover target="popover-target-wechat"
-                 triggers="hover"
-                 placement="bottomright">
-        <!-- <template v-slot:title>Popover Title</template> -->
-        <img class="side-menu-contact-icon-popover" src="/images/wechat.jpg" alt="">
-      </b-popover>
-
       <a class="side-menu-contact-icon"
          id="popover-target-wechat">
         <span class="iconfont icon-wechat"></span>
       </a>
 
-      <b-popover target="popover-target-qq"
-                 triggers="hover"
-                 placement="bottomright">
+      <b-popover target="popover-target-wechat"
+                 data-container="body"
+                 triggers="hover">
         <!-- <template v-slot:title>Popover Title</template> -->
-        <img class="side-menu-contact-icon-popover" src="/images/qq.jpg" alt="">
+        <img class="side-menu-contact-icon-popover"
+             src="/images/wechat.jpg">
+      </b-popover>
+
+      <b-popover target="popover-target-qq"
+                 data-container="body"
+                 triggers="hover">
+        <!-- <template v-slot:title>Popover Title</template> -->
+        <img class="side-menu-contact-icon-popover"
+             src="/images/qq.jpg">
       </b-popover>
 
       <!-- <a class="side-menu-contact-icon"
@@ -125,5 +127,4 @@
   width: 100%;
   height: auto;
 }
-
 </style>
