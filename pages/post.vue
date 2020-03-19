@@ -148,8 +148,8 @@ export default {
       this.active = navContents[navIndex].innerHTML
     },
     commentPushed (data) {
+      this.details.meta.comments += 1
       this.$refs.commentsList.pushComment(data)
-      console.log(data)
     }
   }
 }
