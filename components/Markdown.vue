@@ -83,14 +83,14 @@ export default {
   pointer-events: none;
 }
 
-.markdown-anchored h1 {
+.markdown-content h1 {
   font-size: 1.75rem;
 }
-.markdown-anchored h2 {
+.markdown-content h2 {
   font-size: 1.5rem;
   border: none;
 }
-.markdown-anchored h3 {
+.markdown-content h3 {
   font-size: 1.25rem;
 }
 
