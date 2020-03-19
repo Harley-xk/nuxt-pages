@@ -19,5 +19,7 @@
 .site-footer {
   text-align: center;
   margin: 0 1rem 1rem 1rem;
+  padding-top: 1rem;
+  border-top: 1px #f4f4f4 solid;
 }
 </style>
