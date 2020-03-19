@@ -69,7 +69,7 @@ export default {
 
 .post-list-item {
   margin-bottom: 1rem;
-  border-bottom: dashed 1px #d8d8d8;
+  border-bottom: dashed 1px #eee;
 }
 
 .post-list-item-title {
@@ -79,7 +79,7 @@ export default {
 }
 
 .post-list-item-title:hover {
-  color: rgb(255, 72, 0);
+  color: #42b983;
   text-decoration: none;
 }
 
@@ -103,7 +103,7 @@ export default {
 }
 
 .post-tags-item:hover {
-  color: rgb(255, 72, 0);
+  color: #42b983;
   text-decoration: none;
 }
 
@@ -113,7 +113,7 @@ export default {
 }
 
 .searching-hilighted {
-  color: rgb(255, 72, 0);
+  color: #42b983;
 }
 
 /* 
