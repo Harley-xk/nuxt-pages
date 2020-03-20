@@ -27,7 +27,7 @@
         <div class="log-list-item"
              v-for="(log, index) in logsPage.items"
              :key="index">
-          <div class="log-list-brief"
+          <div :class="logListClass(log)"
                @click="toggleDetails(log.id)">
             <span class="log-item log-time">
               <span class="iconfont icon-time"></span>
@@ -97,21 +97,21 @@
                 </div>
                 <div v-if="log.request.body.length > 0">
                   <span class="log-tab-unit-header">Body：</span>
-                  <pre>{{JSON.stringify(JSON.parse(log.request.body), null, 2)}}</pre>
+                  <pre>{{ log.request.body | formatJSON }}</pre>
                 </div>
               </b-tab>
-              <b-tab title="响应">
+              <b-tab :title="'响应('+ log.response.status + ')'">
                 <div>
                   <span class="log-tab-unit-header">Status：</span>
                   <span class="log-tab-unit">{{log.response.status}}</span>
                 </div>
-                <div>
+                <div v-if="log.response.headers.length > 0">
                   <span class="log-tab-unit-header">Headers：</span>
                   <pre>{{log.response.headers}}</pre>
                 </div>
-                <div v-if="log.request.body.length > 0">
+                <div v-if="log.response.body.length > 0">
                   <span class="log-tab-unit-header">Body：</span>
-                  <pre>{{JSON.stringify(JSON.parse(log.response.body), null, 2)}}</pre>
+                  <pre>{{log.response.body | formatJSON }}</pre>
                 </div>
               </b-tab>
             </b-tabs>
@@ -193,6 +193,20 @@ export default {
         this.refreshData()
       }
     },
+    logListClass(log) {
+      var cls = 'log-list-brief '
+      var status = log.response.status
+      if (status >= 200 && status < 300) {
+        cls += 'log-status-normal'
+      } else if (status >= 300 && status < 400) {
+        cls += 'log-status-warning'
+      } else if (status >= 400 && status < 500) {
+        cls += 'log-status-danger'
+      } else {
+        cls += 'log-status-error'
+      }
+      return cls
+    },
     geoLocation (log) {
       var string = ''
       if (log.geoLocation) {
@@ -270,12 +284,27 @@ pre {
   padding: 0 0.5rem;
 }
 
+.log-status-normal {
+  color: #444;
+}
+
+.log-status-warning {
+  color: rgb(224, 158, 15);
+}
+
+.log-status-danger {
+  color: #eb4f06;
+}
+
+.log-status-error {
+  color: #eb0606;
+}
+
 .log-list-item:hover {
   background-color: #f4f4f4;
 }
 
 .log-list-item:hover .log-page {
-  color: #42b983;
   font-weight: bold;
 }
 
