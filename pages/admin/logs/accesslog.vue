@@ -1,69 +1,130 @@
 <template>
   <div>
 
-    <div class="log-container">
+    <SplitContainer>
+
+      <template v-slot:side-menu>
+        <div class="type-menu">
+          <div :class="menuItemClass('normal')"
+               @click="toggleShowType('normal')">普通日志</div>
+          <div :class="menuItemClass('all')"
+               @click="toggleShowType('all')">全部日志</div>
+        </div>
+      </template>
+
+      <template v-slot:menu-compact>
+        <div class="type-menu">
+          <span :class="menuItemClass('normal')"
+               @click="toggleShowType('normal')">普通日志</span>
+          <span :class="menuItemClass('all')"
+               @click="toggleShowType('all')">全部日志</span>
+        </div>
+      </template>
+
       <chrysan :loading="loading"></chrysan>
 
-      <div class="log-item-card"
-           v-for="log in logsPage.items"
-           :key="log.id">
-        <b-card>
-          <b-row>
-            <b-col size="1">
-              <span class="iconfont icon-page"></span>
-              <span>{{log.page}}</span>
-            </b-col>
-            <span v-b-toggle="'collapse' + log.id"
-                  class="log-btn-details iconfont icon-icon-details"></span>
-          </b-row>
-          <b-row>
-            <b-col size="1">
-              <span class="iconfont icon-address"></span>
-              <span>{{geoLocation(log)}}</span>
-            </b-col>
-            <b-col size="1">
+      <div class="log-container">
+        <div class="log-list-item"
+             v-for="(log, index) in logsPage.items"
+             :key="index">
+          <div class="log-list-brief"
+               @click="toggleDetails(log.id)">
+            <span class="log-item log-time">
               <span class="iconfont icon-time"></span>
               <span>{{ log.createdAt | dateString }}</span>
-            </b-col>
-          </b-row>
+            </span>
+            <span class="log-item log-page">
+              <span class="iconfont icon-page"></span>
+              <span>{{log.request.method}} • {{log.request.url}}</span>
+            </span>
+            <span class="flex-placeholder"></span>
+            <span class="log-item log-address">
+              <span class="iconfont icon-address"></span>
+              <span>{{geoLocation(log)}}</span>
+            </span>
+          </div>
 
-          <b-collapse :id="'collapse' + log.id"
-                      class="mt-2">
-            <div class="log-item-details">
-              <b-row class="log-item-details-tag">
-                <span class="iconfont icon-tag"></span>
-                <span>请求</span>
-              </b-row>
-              <pre>{{log.request}}</pre>
-            </div>
-
-            <div class="log-item-details">
-              <b-row class="log-item-details-tag">
-                <span class="iconfont icon-tag"></span>
-                <span>响应</span>
-              </b-row>
-              <pre>{{log.response}}</pre>
-            </div>
-
-            <div class="log-item-details">
-              <b-row class="log-item-details-tag">
-                <span class="iconfont icon-tag"></span>
-                <span>地址</span>
-              </b-row>
-              <pre>{{JSON.stringify(log.geoLocation, null, 2)}}</pre>
-            </div>
-
-          </b-collapse>
-
-        </b-card>
+          <div class="log-list-detail"
+               v-if="showDetails===log.id">
+            <b-tabs content-class="mt-3">
+              <b-tab title="地址"
+                     active>
+                <div>
+                  <span class="log-tab-unit-header">城市：</span>
+                  <span class="log-tab-unit">{{log.geoLocation.city}}</span>
+                </div>
+                <div>
+                  <span class="log-tab-unit-header">地区：</span>
+                  <span class="log-tab-unit">{{log.geoLocation.regionName}}</span>
+                </div>
+                <div>
+                  <span class="log-tab-unit-header">国家：</span>
+                  <span class="log-tab-unit">{{log.geoLocation.country}}</span>
+                </div>
+                <div>
+                  <span class="log-tab-unit-header">时区：</span>
+                  <span class="log-tab-unit">{{log.geoLocation.timezone}}</span>
+                </div>
+                <div>
+                  <span class="log-tab-unit-header">IP：</span>
+                  <span class="log-tab-unit">{{log.geoLocation.query}}</span>
+                </div>
+                <div>
+                  <span class="log-tab-unit-header">ISP：</span>
+                  <span class="log-tab-unit">{{log.geoLocation.isp}}</span>
+                </div>
+                <div>
+                  <span class="log-tab-unit-header">经纬度：</span>
+                  <span class="log-tab-unit">{{log.geoLocation.lon}}，{{log.geoLocation.lat}}</span>
+                </div>
+              </b-tab>
+              <b-tab title="请求">
+                <div>
+                  <span class="log-tab-unit-header">Method：</span>
+                  <span class="log-tab-unit">{{log.request.method}}</span>
+                </div>
+                <div>
+                  <span class="log-tab-unit-header">URL：</span>
+                  <span class="log-tab-unit">{{log.request.url}}</span>
+                </div>
+                <div v-if="log.request.query !== undefined && log.request.query.length > 0">
+                  <span class="log-tab-unit-header">Query：</span>
+                  <span class="log-tab-unit">{{log.request.query}}</span>
+                </div>
+                <div>
+                  <span class="log-tab-unit-header">Headers：</span>
+                  <pre>{{log.request.headers}}</pre>
+                </div>
+                <div v-if="log.request.body.length > 0">
+                  <span class="log-tab-unit-header">Body：</span>
+                  <pre>{{JSON.stringify(JSON.parse(log.request.body), null, 2)}}</pre>
+                </div>
+              </b-tab>
+              <b-tab title="响应">
+                <div>
+                  <span class="log-tab-unit-header">Status：</span>
+                  <span class="log-tab-unit">{{log.response.status}}</span>
+                </div>
+                <div>
+                  <span class="log-tab-unit-header">Headers：</span>
+                  <pre>{{log.response.headers}}</pre>
+                </div>
+                <div v-if="log.request.body.length > 0">
+                  <span class="log-tab-unit-header">Body：</span>
+                  <pre>{{JSON.stringify(JSON.parse(log.response.body), null, 2)}}</pre>
+                </div>
+              </b-tab>
+            </b-tabs>
+          </div>
+        </div>
       </div>
-
-      <b-pagination-nav class="pagination-nav"
-                        v-show="logsPage.metadata.total > pageSize"
-                        :link-gen="linkGen"
-                        :number-of-pages="totalPages"></b-pagination-nav>
-    </div>
-
+      <div>
+        <b-pagination-nav class="pagination-nav"
+                          v-show="logsPage.metadata.total > pageSize"
+                          :link-gen="linkGen"
+                          :number-of-pages="totalPages"></b-pagination-nav>
+      </div>
+    </SplitContainer>
   </div>
 </template>
 
@@ -71,16 +132,18 @@
 
 import Chrysan from '~/components/Chrysan.vue'
 import Consolelog from '~/components/ConsoleLog.vue';
+import SplitContainer from '~/components/SplitContainer.vue';
 
 export default {
   components: {
     Chrysan,
     Consolelog,
+    SplitContainer,
   },
   data () {
     return {
       loading: false,
-      pageSize: 40,
+      pageSize: 100,
       logsPage: {
         items: [],
         metadata: {
@@ -88,19 +151,15 @@ export default {
           per: 10,
           total: 1
         }
-      }
+      },
+      showDetails: 0,
+      showType: 'normal',
     }
   },
   mounted () {
     var page = this.$route.query.page
-    if (page === null || page === undefined) {
-      page = 1
-    }
-    var key = this.$route.query.key
-    if (key === null || key === undefined) {
-      key = ''
-    }
-    this.refreshData(page, key)
+    var type = this.$route.query.type
+    this.refreshData(page, type)
   },
   computed: {
     totalPages () {
@@ -108,15 +167,33 @@ export default {
     }
   },
   methods: {
-    refreshData (page, key) {
+    refreshData (page) {
+      if (page === null || page === undefined) {
+        page = 1
+      }
       this.loading = true
-      var query = 'page=' + page + '&per=' + this.pageSize
+      var query = `page=${page}&per=${this.pageSize}&type=${this.showType}`
       this.$axios.get(`admin/logs/accesslog?` + query).then(res => {
         this.logsPage = res.data
         this.loading = false
       })
     },
-        geoLocation (log) {
+    menuItemClass (type) {
+      var cls = "type-menu-item"
+      if (type === this.showType) {
+        cls += " active"
+      }
+      return cls
+    },
+    toggleShowType (type) {
+      if (this.showType === type) {
+        return
+      } else {
+        this.showType = type
+        this.refreshData()
+      }
+    },
+    geoLocation (log) {
       var string = ''
       if (log.geoLocation) {
         let location = log.geoLocation
@@ -124,11 +201,18 @@ export default {
           string += location.city
         }
         if (location.country) {
-          string += ' · ' + location.country
+          string += ' • ' + location.country
         }
         return string
       } else {
         return log.ip
+      }
+    },
+    toggleDetails (id) {
+      if (this.showDetails === id) {
+        this.showDetails = 0
+      } else {
+        this.showDetails = id
       }
     },
     linkGen (pageNum) {
@@ -142,64 +226,82 @@ export default {
 </script>
 
 <style lang="css">
+.type-menu {
+  padding: 1rem;
+}
+
+.type-menu-item {
+  margin-bottom: 10px;
+  text-align: center;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.type-menu-item:hover {
+  color: #42b983;
+}
+
+.type-menu .active {
+  font-weight: bold;
+  color: #42b983;
+}
+
 pre {
   color: #666666;
   white-space: pre-wrap;
   word-break: break-all;
 }
 
-.log-container {
+.log-list-item {
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.log-list-brief {
   display: flex;
   flex-wrap: wrap;
 }
 
-.log-item-card {
+.log-list-detail {
   margin: 0.5rem;
 }
 
-.log-btn-details {
-  padding: 0 1rem;
+.log-list-detail .tab-content {
+  padding: 0 0.5rem;
 }
 
-.log-btn-details:hover {
-  color: rgb(255, 72, 0);
+.log-list-item:hover {
+  background-color: #f4f4f4;
 }
 
-.log-item-details {
-  margin: 1rem;
+.log-list-item:hover .log-page {
+  color: #42b983;
+  font-weight: bold;
 }
 
-.log-item-details-tag span {
-  font-size: 0.85rem;
-  padding-right: 5px;
-  color: rgb(255, 72, 0);
+.log-item {
+  margin: 0 0.25rem;
 }
 
-@media screen and (min-width: 1600px) {
-  .log-container {
-    margin: 1rem 5rem;
-  }
-  .log-item-card {
-    margin: 1rem;
-    width: calc(33% - 2rem);
-  }
+.log-time,
+.log-address {
+  color: #ccc;
 }
 
-@media screen and (max-width: 1600px) {
-  .log-container {
-    margin: 1rem 2rem;
-  }
-  .log-item-card {
-    width: calc(50% - 1rem);
-  }
-}
-
-@media screen and (max-width: 800px) {
-  .log-container {
-    margin: 1rem 0.5rem;
-  }
-  .log-item-card {
+@media screen and (max-width: 500px) {
+  .log-address {
     width: 100%;
   }
+  .log-page {
+    width: 100%;
+  }
+}
+
+.log-tab-unit-header {
+  display: inline-block;
+  width: 4rem;
+  text-align: right;
+  color: #8c8c8c;
+  font-size: 0.85rem;
 }
 </style>

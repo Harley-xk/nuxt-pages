@@ -6,6 +6,9 @@
     </div>
 
     <div class="split-content">
+      <div class="side-menu-compact">
+      <slot name="menu-compact"></slot>
+      </div>
       <slot></slot>
     </div>
 
@@ -48,6 +51,9 @@
   .split-side-menu {
     flex-shrink: 0;
     flex-basis: 200px;
+  }
+  .side-menu-compact {
+      display: none;
   }
   .split-content {
     margin-left: 2rem;
