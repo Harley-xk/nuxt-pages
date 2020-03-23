@@ -49,8 +49,9 @@ export default {
   ],
   axios: {
     proxy: true, // 表示开启代理
-    prefix: '/valog/api', // 表示给请求url加个前缀 /api
-    credentials: true // 表示跨域请求时是否需要使用凭证
+    prefix: '/valog/api', // 表示给请求url加个前缀 /api,似乎只在浏览器上生效
+    credentials: true, // 表示跨域请求时是否需要使用凭证，
+    baseURL: 'http://localhost:9000/api'
   },
   server: {
     host: '0.0.0.0',
