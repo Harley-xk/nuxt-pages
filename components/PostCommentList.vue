@@ -72,7 +72,8 @@ export default {
   methods: {
     refreshData () {
       this.state = 'active'
-      this.$axios('posts/' + this.postId + '/comments?per=999').then(res => {
+      console.log('fetch comments,', this.postId)
+      this.$axios('/posts/' + this.postId + '/comments?per=999').then(res => {
         this.state = 'idle'
         this.pageMeta = res.data.metadata
         this.comments = res.data.items

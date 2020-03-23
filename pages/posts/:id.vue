@@ -42,11 +42,11 @@
         </div>
 
         <PostCommentForm v-if="haveContents"
-                         :postId="id"
+                         :postId="$route.params.id"
                          @commentPushed="commentPushed"></PostCommentForm>
 
         <PostCommentList v-if="haveContents"
-                         :postId="id"
+                         :postId="$route.params.id"
                          ref="commentsList"
                          @commentPushed="commentPushed"></PostCommentList>
 
@@ -77,11 +77,6 @@ export default {
     PostCommentForm,
     PostCommentList,
   },
-  mounted () {
-    console.log(this.$route)
-    this.id = this.$route.params.id
-    // this.getContents()
-  },
   asyncData ({ $axios, params }) {
     if (process.server) {
       return $axios.get(`http://0.0.0.0:8080/api/posts/` + params.id).then(res => {
@@ -95,7 +90,6 @@ export default {
   },
   data () {
     return {
-      id: '',
       title: '',
       loading: false,
       details: {
