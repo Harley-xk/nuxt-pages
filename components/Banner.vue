@@ -1,18 +1,11 @@
 <template>
   <div class="banner-container">
-
-    <style>
-    :root {
-      --banner-image: url('{{ image }}');
-    }
-    </style>
-
-    <div class="banner-mask">
+    <img :src="image">
+    <div class="banner-cover">
       <div class="banner-title">
         <slot></slot>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -24,24 +17,26 @@ export default {
 
 <style lang="css">
 .banner-container {
+  position: relative;
   width: 100vw;
   height: 60vw;
   min-height: 200px;
   max-height: 400px;
   display: block;
-  background-size: cover;
-  background-position: 50%;
-  /* background-repeat: no-repeat; */
-  background-image: var(--banner-image);
 }
 
-.banner-mask {
-  height: 100%;
+.banner-container img {
   width: 100%;
-  color: white;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.6);
+}
+
+.banner-cover {
+  position:absolute;
+  top: 0;right: 0;left: 0;bottom: 0;
   font-size: 2rem;
   text-align: center;
-  background: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
 }
