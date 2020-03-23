@@ -57,7 +57,10 @@ export default {
     rendered () {
       if (this.anchor === "1") {
         var anchor = require('markdown-it-anchor').default
-        mdAnchored.use(anchor)
+        console.log('anchor', anchor)
+        if (anchor !== undefined) {
+          mdAnchored.use(anchor)
+        }
         return mdAnchored.render(this.content)
       }
       return md.render(this.content)
