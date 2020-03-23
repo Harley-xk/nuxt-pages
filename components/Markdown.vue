@@ -75,7 +75,6 @@ export default {
   height: 64px;
   margin-top: -64px;
   visibility: hidden;
-  pointer-events: none;
 }
 
 .markdown-anchored h1,
@@ -85,16 +84,21 @@ export default {
 }
 
 .markdown-content h1 {
-  font-size: 1.75rem;
+  font-size: 2rem;
 }
 .markdown-content h2 {
-  font-size: 1.5rem;
+  font-size: 1.55rem;
   border: none;
 }
 .markdown-content h3 {
   font-size: 1.25rem;
 }
-
+.markdown-content h4,
+.markdown-content h5,
+.markdown-content h6 {
+  font-size: 1.05rem;
+  color: #506274;
+}
 code {
   padding: 2px 4px;
   border-radius: 3px;
