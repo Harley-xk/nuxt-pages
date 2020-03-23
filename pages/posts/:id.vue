@@ -77,7 +77,7 @@ export default {
     PostCommentForm,
     PostCommentList,
   },
-  asyncData ({ $axios, params }) {
+  asyncData ({ $axios, params, req}) {
     if (process.server) {
       return $axios.get(`/posts/` + params.id, {
         headers: req.headers
