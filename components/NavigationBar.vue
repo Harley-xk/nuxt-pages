@@ -137,12 +137,10 @@ export default {
   mounted () {
     this.keyword_ = this.keyword
     this.autoLogin()
-    console.log('searching ' + this.keyword_)
   },
   methods: {
     onSearch () {
-      console.log('searching ' + this.keyword_)
-      this.$router.push({ name: 'index', query: { key: this.keyword_ } })
+      this.$router.push({ path: '/posts/search', query: { key: this.keyword_ } })
     },
     autoLogin () {
       var token = localStorage.token
