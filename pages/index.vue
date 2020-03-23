@@ -37,17 +37,22 @@ export default {
     Chrysan,
     'post-list': PostList,
   },
-  mounted () {
-    console.log(this.$route)
-    var page = this.$route.query.page
-    if (page === null || page === undefined) {
-      page = 1
+  watchQuery: true,
+  asyncData ({ query, $axios, req }) {
+    if (process.server) {
+      var page = 1
+      if (query.page) {
+        page = query.page
+      }
+      var querystr = 'page=' + page
+      if (query.key && query.key.length > 0) {
+        querystr += '&key=' + query.key
+      }
+      return $axios.get(`http://0.0.0.0:8080/api/posts?` + querystr).then(res => {
+        // console.log(res)
+        return { postPage: res.data }
+      })
     }
-    var key = this.$route.query.key
-    if (key === null || key === undefined) {
-      key = ''
-    }
-    this.refreshData(page, key)
   },
   data () {
     return {
@@ -69,17 +74,6 @@ export default {
     }
   },
   methods: {
-    refreshData (page, key) {
-      this.loading = true
-      var query = 'page=' + page
-      if (key.length > 0) {
-        query += '&key=' + key
-      }
-      this.$axios.get(`posts?` + query).then(res => {
-        this.postPage = res.data
-        this.loading = false
-      })
-    },
     linkGen (pageNum) {
       // this.postPage.items = []
       // this.refreshData(pageNum)
