@@ -48,7 +48,9 @@ export default {
       if (query.key && query.key.length > 0) {
         querystr += '&key=' + query.key
       }
-      return $axios.get(`http://0.0.0.0:8080/api/posts?` + querystr).then(res => {
+      return $axios.get(`/posts?` + querystr, {
+        headers: req.headers
+      }).then(res => {
         // console.log(res)
         return { postPage: res.data }
       })

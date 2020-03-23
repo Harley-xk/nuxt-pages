@@ -30,9 +30,9 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    {src: '~/plugins/components.js', mode: 'client'},
-    {src: '~/plugins/filters.js', mode: 'client'},
-    {src: '~/plugins/request.js', mode: 'client'},
+    {src: '~/plugins/components.js'},// mode: 'client'},
+    {src: '~/plugins/filters.js'},// mode: 'client'},
+    {src: '~/plugins/request.js'}, // mode: 'client'},
   ],
   /*
   ** Nuxt.js dev-modules

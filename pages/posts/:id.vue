@@ -79,7 +79,9 @@ export default {
   },
   asyncData ({ $axios, params }) {
     if (process.server) {
-      return $axios.get(`http://0.0.0.0:8080/api/posts/` + params.id).then(res => {
+      return $axios.get(`/posts/` + params.id, {
+        headers: req.headers
+      }).then(res => {
         // console.log(res)
         return { 
           details: res.data,
@@ -114,16 +116,6 @@ export default {
     }
   },
   methods: {
-    getContents () {
-      console.log("this.route: ", this.$route)
-      this.loading = true
-      this.$axios.get(`posts/` + this.$route.params.id).then(res => {
-        this.details = res.data
-        this.title = res.data.meta.title
-        console.log(res)
-        this.loading = false
-      })
-    },
     commentPushed (data) {
       this.details.meta.comments += 1
       this.$refs.commentsList.pushComment(data)

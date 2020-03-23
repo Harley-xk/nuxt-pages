@@ -3,10 +3,18 @@ export default function({ $axios, redirect }) {
   $axios.interceptors.request.use(
     config => {
       // do something before request is sent
-      var token = localStorage.token
-      if (token && token.length > 0) {
-        console.log('set Authorization header: Bearer ' + token)
-        config.headers['Authorization'] = 'Bearer ' + token
+
+      console.log('interceptors in ', process.server ? 'server' : 'client')
+      if (process.server) {
+        /// 服务端渲染的请求加上标识
+        config.headers['X-Render'] = 'Server'
+      } else {
+        /// 在浏览器端调用时，头部加上 token
+        var token = localStorage.token
+        if (token && token.length > 0) {
+          console.log('set Authorization header: Bearer ' + token)
+          config.headers['Authorization'] = 'Bearer ' + token
+        }
       }
       return config
     },
