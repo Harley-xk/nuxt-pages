@@ -77,9 +77,21 @@ export default {
     PostCommentForm,
     PostCommentList,
   },
-  created () {
-    this.id = this.$route.query.id
-    this.getContents()
+  mounted () {
+    console.log(this.$route)
+    this.id = this.$route.params.id
+    // this.getContents()
+  },
+  asyncData ({ $axios, params }) {
+    if (process.server) {
+      return $axios.get(`http://0.0.0.0:8080/api/posts/` + params.id).then(res => {
+        // console.log(res)
+        return { 
+          details: res.data,
+          title: res.data.meta.title,
+        }
+      })
+    }
   },
   data () {
     return {
@@ -109,8 +121,9 @@ export default {
   },
   methods: {
     getContents () {
+      console.log("this.route: ", this.$route)
       this.loading = true
-      this.$axios.get(`posts/` + this.id).then(res => {
+      this.$axios.get(`posts/` + this.$route.params.id).then(res => {
         this.details = res.data
         this.title = res.data.meta.title
         console.log(res)

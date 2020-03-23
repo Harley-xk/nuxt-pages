@@ -5,7 +5,7 @@
          v-for="(item, index) in preocessedPosts"
          :key="index">
       <a class="post-list-item-title"
-         :href="'/post?id=' + item.id"
+         :href="'/posts/' + item.id"
          v-html="item.title">
       </a>
 
