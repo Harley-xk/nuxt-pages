@@ -11,6 +11,10 @@ export const mutations = {
     localStorage.user = JSON.stringify(loginData.user)
     localStorage.token = loginData.token.value
   },
+  autoLogin(state, user) {
+    state.user = user
+    state.isLogined = true
+  },
   signOut(state) {
     state.user = null
     state.isLogined = false

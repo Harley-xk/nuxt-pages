@@ -21,14 +21,49 @@ export default {
   components: {
     NavigationBar,
     SiteFooter,
+  },
+  computed: {
+    isLogined () {
+      return this.$store.state.userCenter.isLogined
+    },
+  },
+  mounted () {
+    this.autoLogin()
+  },
+  methods: {
+    autoLogin () {
+      if (this.isLogined) {
+        return
+      }
+
+      // 本地已保存用户数据，则不再请求
+      let userString = localStorage.user
+      if (userString !== undefined && userString.length > 0) {
+        let user = JSON.parse(userString)
+        if (user !== undefined && user !== null) {
+          this.$store.commit('userCenter/autoLogin', user)
+          return
+        }
+      }
+
+      // 本地保存了 token，则自动登录
+      let token = localStorage.token
+      if (token !== undefined && token.length > 0) {
+        this.$axios.post('autoLogin').then(res => {
+          if (res.status == 200) {
+            this.$store.commit('userCenter/userDidLogin', res.data)
+          }
+        })
+      }
+    },
   }
 }
 </script>
 
 <style>
 html {
-  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: Arial, "Microsoft YaHe", "Source Sans Pro", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -77,5 +112,4 @@ html {
 .flex-placeholder {
   flex-grow: 99;
 }
-
 </style>
