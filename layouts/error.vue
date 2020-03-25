@@ -4,8 +4,8 @@
          alt="">
     <div>
       <p class="error-message">啊，不小心来到火星了！</p>
-      <NuxtLink class="error-link"
-                to="/">🚀 送我回地球</NuxtLink>
+      <a class="error-link"
+                href="/">🚀 送我回地球</a>
     </div>
   </div>
 </template>
