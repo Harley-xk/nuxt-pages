@@ -20,38 +20,26 @@
     <div class="side-menu-contact">
 
       <a class="side-menu-contact-icon"
-         href="https://github.com/Harley-xk">
+         href="https://github.com/Harley-xk"
+         target="_blank">
         <span class="iconfont icon-github"></span>
       </a>
 
       <a class="side-menu-contact-icon"
-         href="https://weibo.com/u/1161848005">
+         href="https://weibo.com/u/1161848005"
+         target="_blank">
         <span class="iconfont icon-weibo"></span>
       </a>
 
       <a class="side-menu-contact-icon"
-         id="popover-target-wechat">
+         href="/images/wechat.jpg"
+         target="_blank">
         <span class="iconfont icon-wechat"></span>
       </a>
 
-      <b-popover target="popover-target-wechat"
-                 data-container="body"
-                 triggers="hover">
-        <!-- <template v-slot:title>Popover Title</template> -->
-        <img class="side-menu-contact-icon-popover"
-             src="/images/wechat.jpg">
-      </b-popover>
-
-      <b-popover target="popover-target-qq"
-                 data-container="body"
-                 triggers="hover">
-        <!-- <template v-slot:title>Popover Title</template> -->
-        <img class="side-menu-contact-icon-popover"
-             src="/images/qq.jpg">
-      </b-popover>
-
       <!-- <a class="side-menu-contact-icon"
-         id="popover-target-qq">
+         href="/images/qq.jpg"
+         target="_blank">
         <span class="iconfont icon-qq"></span>
       </a> -->
 
