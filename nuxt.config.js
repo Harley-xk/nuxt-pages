@@ -59,14 +59,14 @@ export default {
   },
   proxy: {
     '/valog/api': {
-      target: 'http://localhost:8080', // 目标接口域名
+      target: 'http://localhost:9000', // 目标接口域名
       pathRewrite: {
         '^/valog/api': '/api', // 去掉 /valog
         changeOrigin: true // 表示是否跨域
       }
     },
     '/post-images': {
-      target: 'http://localhost:8080'
+      target: 'http://localhost:9000'
     }
   },
   /*
