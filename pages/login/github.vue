@@ -17,16 +17,17 @@ export default {
   data () {
     return {
       loading: false,
-      message: 'Login with Github ...'
+      message: '正在通过 Github 登录...'
     }
   },
   methods: {
     async checkCode () {
       try {
+        this.loading = true
         const resp = await this.$axios.post(`githubLogin`, this.$route.query)
         console.log(resp)
         this.$store.commit('userCenter/userDidLogin', resp.data)
-        this.$router.replace({ path: '/', query: { key: this.keyword_ } })
+        this.$router.replace({ path: this.$route.query.from })
         console.log(resp)
       } catch (error) {
         console.log('error: ', error.message)

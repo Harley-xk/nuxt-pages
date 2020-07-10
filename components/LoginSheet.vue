@@ -41,7 +41,10 @@
       </b-row>
     </b-form>
     <template v-slot:modal-footer="{ ok, cancel }">
-      <a :href="githubOAuthPath">Github</a>
+      <a class="login-btn-github"
+         :href="githubOAuthPath">
+        <span class="iconfont icon-github"></span>
+      </a>
       <span class="form-message"
             v-if="message.length > 0">{{message}}</span>
       <span class="form-loading"
@@ -82,6 +85,7 @@ export default {
     githubOAuthPath () {
       var random = crypto.randomBytes(Math.ceil(8)).toString('hex').slice(0, 16)
       return 'https://github.com/login/oauth/authorize?client_id=7fac9b4d5e84a5721511&state=' + random
+        + '&redirect_uri=http://localhost:3000/login/github?from=' + this.$route.fullPath
     }
   },
   methods: {
@@ -167,5 +171,17 @@ export default {
 }
 .modal-footer-placeholder {
   flex-grow: 1;
+}
+
+.login-btn-github {
+  color: #444;
+}
+
+.login-btn-github:hover {
+  text-decoration: none;
+}
+
+.login-btn-github span {
+  font-size: 1.5rem;
 }
 </style>
