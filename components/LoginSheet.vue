@@ -41,6 +41,7 @@
       </b-row>
     </b-form>
     <template v-slot:modal-footer="{ ok, cancel }">
+      <a :href="githubOAuthPath">Github</a>
       <span class="form-message"
             v-if="message.length > 0">{{message}}</span>
       <span class="form-loading"
@@ -65,6 +66,7 @@
 </template>
 
 <script>
+const crypto = require('crypto')
 export default {
   data () {
     return {
@@ -74,6 +76,12 @@ export default {
       nameState: null,
       passState: null,
       loading: false
+    }
+  },
+  computed: {
+    githubOAuthPath () {
+      var random = crypto.randomBytes(Math.ceil(8)).toString('hex').slice(0, 16)
+      return 'https://github.com/login/oauth/authorize?client_id=7fac9b4d5e84a5721511&state=' + random
     }
   },
   methods: {
@@ -120,7 +128,7 @@ export default {
           password: this.password
         }
       }).then(res => {
-      this.$store.commit('userCenter/userDidLogin', res.data)
+        this.$store.commit('userCenter/userDidLogin', res.data)
         this.$refs['modal-login'].hide()
       }).catch(res => {
         this.nameState = false
