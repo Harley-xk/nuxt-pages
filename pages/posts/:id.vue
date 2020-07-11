@@ -77,13 +77,13 @@ export default {
     PostCommentForm,
     PostCommentList,
   },
-  asyncData ({ $axios, params, req}) {
+  asyncData ({ $axios, params, req }) {
     if (process.server) {
       return $axios.get(`/posts/` + params.id, {
         headers: req.headers
       }).then(res => {
         // console.log(res)
-        return { 
+        return {
           details: res.data,
           title: res.data.meta.title,
         }
@@ -115,7 +115,18 @@ export default {
       return Math.ceil(this.postLength / 300)
     }
   },
+  mounted () {
+    if (this.details.content.length <= 0) {
+      console.log('fetch post content, process: ', process)
+      this.getPostContent()
+    }
+  },
   methods: {
+    async getPostContent () {
+      var resp = await this.$axios.get(`/posts/` + this.$route.params.id)
+      this.details = resp.data
+      this.title = resp.data.meta.title
+    },
     commentPushed (data) {
       this.details.meta.comments += 1
       this.$refs.commentsList.pushComment(data)

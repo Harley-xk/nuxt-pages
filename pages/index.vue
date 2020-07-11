@@ -75,7 +75,25 @@ export default {
       return Math.ceil(this.postPage.metadata.total / this.pageSize)
     }
   },
+  mounted () {
+    if (this.postPage.items.length <= 0) {
+      this.fetchPostList()
+    }
+  },
   methods: {
+    async fetchPostList () {
+      var page = 1
+      var query = this.$route.query
+      if (query.page) {
+        page = query.page
+      }
+      var querystr = 'page=' + page
+      if (query.key && query.key.length > 0) {
+        querystr += '&key=' + query.key
+      }
+      var resp = await this.$axios.get(`/posts?` + querystr)
+      this.postPage = resp.data
+    },
     linkGen (pageNum) {
       // this.postPage.items = []
       // this.refreshData(pageNum)
