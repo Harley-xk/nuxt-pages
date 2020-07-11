@@ -85,7 +85,7 @@ export default {
     githubOAuthPath () {
       var random = crypto.randomBytes(Math.ceil(8)).toString('hex').slice(0, 16)
       return 'https://github.com/login/oauth/authorize?client_id=7fac9b4d5e84a5721511&state=' + random
-        + '&redirect_uri=http://localhost:3000/login/github?from=' + this.$route.fullPath
+        + '&redirect_uri=https://me.harley-xk.studio/login/github?from=' + this.$route.fullPath
     }
   },
   methods: {
