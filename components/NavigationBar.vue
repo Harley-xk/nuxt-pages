@@ -53,6 +53,10 @@
           <b-nav-item-dropdown v-if="isLogined"
                                right>
             <template v-slot:button-content>
+              <img class="nav-img-avatar"
+                   v-if="user.avatar"
+                   :src="user.avatar"
+                   alt="">
               <em>{{user.nickname}}</em>
             </template>
             <!-- <b-dropdown-item href="#">Profile</b-dropdown-item> -->
@@ -162,6 +166,12 @@ export default {
 
 .nav-drop-active {
   color: white;
+}
+
+.nav-img-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 3px;
 }
 
 @media screen and (min-width: 768px) {

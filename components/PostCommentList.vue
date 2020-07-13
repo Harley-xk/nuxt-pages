@@ -8,6 +8,11 @@
       <div class="comment-container">
         <div class="comment-item-left">
           <img class="comment-avatar"
+               v-if="item.sender.avatar"
+               :src="item.sender.avatar"
+               alt="">
+          <img class="comment-avatar"
+               v-else
                src="/images/avatar-placeholder.png"
                alt="">
         </div>
@@ -126,6 +131,7 @@ export default {
   margin: 2px 0;
   width: 50px;
   height: 50px;
+  border-radius: 4px;
 }
 
 .comment-item-header span {
