@@ -5,20 +5,20 @@ export const state = () => ({
 })
 
 export const mutations = {
-  userDidLogin(state, loginData) {
+  userDidLogin (state, loginData) {
     state.user = loginData.user
     state.isLogined = true
     localStorage.user = JSON.stringify(loginData.user)
     localStorage.token = loginData.token.value
   },
-  autoLogin(state, user) {
+  autoLogin (state, user) {
     state.user = user
     state.isLogined = true
   },
-  signOut(state) {
+  signOut (state) {
     state.user = null
     state.isLogined = false
-    localStorage.user = null
-    localStorage.token = null
+    localStorage.removeItem('user')
+    localStorage.removeItem('token')
   }
 }

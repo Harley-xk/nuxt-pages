@@ -38,7 +38,7 @@ export default {
 
       // 本地已保存用户数据，则不再请求
       let userString = localStorage.user
-      if (userString !== undefined && userString.length > 0) {
+      if (userString) {
         let user = JSON.parse(userString)
         if (user !== undefined && user !== null) {
           this.$store.commit('userCenter/autoLogin', user)
@@ -47,8 +47,7 @@ export default {
       }
 
       // 本地保存了 token，则自动登录
-      let token = localStorage.token
-      if (token !== undefined && token.length > 0) {
+      if (localStorage.token) {
         this.$axios.post('autoLogin').then(res => {
           if (res.status == 200) {
             this.$store.commit('userCenter/userDidLogin', res.data)
