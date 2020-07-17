@@ -96,7 +96,7 @@ export default {
         },
         {
           name: '关于',
-          href: '/about'
+          href: '/posts/202003201702'
         },
       ],
       adminLinks: [
