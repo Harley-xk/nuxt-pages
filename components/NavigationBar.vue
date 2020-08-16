@@ -108,6 +108,10 @@ export default {
           name: '访问日志',
           href: '/admin/logs/accesslog'
         },
+        {
+          name: '阅览日志',
+          href: '/admin/records/posts/reading'
+        },
       ],
       keyword_: ''
     }
