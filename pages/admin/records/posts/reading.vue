@@ -20,6 +20,10 @@
           <span class="log-item log-page">
             <span class="iconfont icon-page"></span>
             <span>{{record.post.title}}</span>
+            <span class="tag-bot"
+                  v-if="isFromBot(record)">
+              Bot
+            </span>
           </span>
           <span class="flex-placeholder"></span>
           <span class="log-item log-address">
@@ -110,6 +114,12 @@ export default {
         return record.accessLog.ip
       }
     },
+    isFromBot (record) {
+      if (!record.accessLog.request.headers) {
+        return true
+      }
+      return record.accessLog.request.headers.toLowerCase().includes('bot')
+    },
     toggleDetails (id) {
       if (this.showDetails === id) {
         this.showDetails = 0
@@ -189,6 +199,15 @@ export default {
 
   .log-item {
     margin: 0 0.25rem;
+
+    .tag-bot {
+      color: #ca9605;
+      background-color: #ffefbc;
+      font-size: 12px;
+      padding: 1px 4px;
+      border-radius: 3px;
+      margin-left: 5px;
+    }
   }
 
   .log-time,
