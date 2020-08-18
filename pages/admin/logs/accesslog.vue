@@ -64,12 +64,14 @@
 import Chrysan from '~/components/Chrysan.vue'
 import Consolelog from '~/components/ConsoleLog.vue';
 import SplitContainer from '~/components/SplitContainer.vue';
+import AccessLog from '../../../components/AccessLog'
 
 export default {
   components: {
     Chrysan,
     Consolelog,
     SplitContainer,
+    AccessLog
   },
   data () {
     return {
